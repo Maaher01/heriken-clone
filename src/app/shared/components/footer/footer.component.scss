@@ -1,0 +1,130 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+//Footer
+.footer {
+  padding: 90px 80px 0px 80px;
+  background-color: #f5f6f7;
+
+  @media only screen and (max-width: 991px) {
+    padding: 90px 50px 60px 50px;
+  }
+
+  @media only screen and (max-width: 768px) {
+    padding: 90px 30px 60px 30px;
+  }
+
+  @media only screen and (max-width: 550px) {
+    padding: 90px 10px 60px 10px;
+  }
+
+  .container {
+    .foo-cols {
+      height: 350px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 25px;
+
+      @media only screen and (max-width: 1182px) {
+        height: 600px;
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      @media only screen and (max-width: 550px) {
+        height: 1150px;
+        grid-template-columns: repeat(1, 1fr);
+      }
+
+      .foo-col {
+        padding-right: 35px;
+
+        img {
+          height: 80px;
+          width: 80px;
+          border-radius: 50%;
+          margin-bottom: 10px;
+          cursor: pointer;
+        }
+
+        //Footer social Icons
+        .social-icons {
+          display: flex;
+          gap: 10px;
+          color: #70c332;
+          margin-top: 35px;
+
+          div {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: white;
+            border-radius: 50%;
+            padding: 12px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1),
+              0 5px 20px 0 rgba(0, 0, 0, 0.1);
+
+            &:hover {
+              color: white;
+              background-color: #70c332;
+              transition: background-color 0.5s ease-in;
+              cursor: pointer;
+            }
+          }
+        }
+
+        h1 {
+          color: #55555a;
+          margin-bottom: 20px;
+          font-weight: 500;
+          font-size: 25px;
+        }
+
+        p {
+          color: #55555a;
+          margin: 8px 0px;
+          font-size: 17px;
+          line-height: 1.5;
+        }
+
+        .link:hover {
+          color: #70c332;
+          cursor: pointer;
+          text-decoration: underline;
+          transition: all 0.3s linear;
+        }
+
+        div {
+          display: flex;
+          align-items: center;
+          gap: 15px;
+
+          mat-icon {
+            color: #70c332;
+            transform: scale(1.35);
+            font-weight: 900;
+            overflow: visible;
+          }
+        }
+      }
+    }
+  }
+
+  //Copyright div
+  .copyright {
+    background-color: #70c332;
+    color: white;
+    text-align: center;
+    font-size: 16px;
+    padding: 15px 0px;
+    border-radius: 8px 8px 0px 0px;
+
+    span:hover {
+      text-decoration: underline;
+      cursor: pointer;
+    }
+  }
+}

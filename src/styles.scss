@@ -1,0 +1,32 @@
+/* You can add global styles to this file, and also import other style files */
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+body {
+  font-family: "Roboto", sans-serif !important ;
+}
+.text-center {
+  text-align: center !important;
+}
+.snackbar {
+  background-color: #70c332;
+  color: white;
+  font-size: 48px;
+}
+.footer-area {
+  background: rgb(238, 243, 243);
+  padding: 15px 0;
+}
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}

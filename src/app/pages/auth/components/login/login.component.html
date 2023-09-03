@@ -1,0 +1,52 @@
+<div class="container">
+    <div class="form-area">
+        <div class="form-top">
+            <h3>Welcome Back!</h3>
+            <p>Enter your email and password to login</p>
+        </div>
+        <form [formGroup]="userLoginForm" (ngSubmit)="loginUser()">
+            <div class="form-main">
+                <div class="form-input">
+                    <div class="form-input-main">
+                        <input type="email" placeholder="Enter your Email" formControlName="email" />
+                        <div *ngIf="
+                  userLoginForm.controls['email']?.dirty ||
+                  (userLoginForm.controls['email']?.touched &&
+                    userLoginForm.controls['email'].invalid)
+                ">
+                            <mat-error *ngIf="
+                    userLoginForm.controls['email']?.hasError('required')
+                  ">Email is required</mat-error>
+                        </div>
+                    </div>
+                    <div class="form-input-main">
+                        <input type="password" placeholder="Enter your Password" formControlName="password" />
+                        <div *ngIf="
+                  userLoginForm.controls['password']?.dirty ||
+                  (userLoginForm.controls['password']?.touched &&
+                    userLoginForm.controls['password'].invalid)
+                ">
+                            <mat-error *ngIf="
+                    userLoginForm.controls['password']?.hasError('required')
+                  ">Password is required</mat-error>
+                        </div>
+                    </div>
+                </div>
+                <div class="error-response" *ngIf="errorResponse">
+                    <strong>{{errorResponse}}</strong>
+                </div>
+                <div class="form-sub-btn">
+                    <button [disabled]="userLoginForm.invalid">Login</button>
+                </div>
+                <div class="bottom-text">
+                    <div class="register-text">
+                        Dont have an account? <span class="register-router"
+                            [routerLink]="['/pages/auth/register']">Register
+                            now!</span>
+                    </div>
+                    <span class="forgot-router" [routerLink]="['/pages/auth/forgot-password']">Forgot Password?</span>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

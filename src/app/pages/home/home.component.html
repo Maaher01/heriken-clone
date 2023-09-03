@@ -1,0 +1,36 @@
+<div class="main">
+  <div class="header">
+    <div class="background"></div>
+
+    <div class="content">
+      <div class="content-text">
+        <h3>Find the Boundaries. Push Through!</h3>
+        <h2>Summer Sale</h2>
+        <h1>70% OFF</h1>
+
+        <div class="shop-offer">
+          <p>STARTING AT</p>
+          <button class="value">$199</button>
+          <button class="shop" [routerLink]="['/pages/allproducts']">SHOP NOW!</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sub-icons">
+    <div class="icon-container" *ngFor="let item of list">
+      <div class="icon">
+        <i class="bi {{ item.icon }}"></i>
+      </div>
+      <div class="text-container">
+        <h3>{{ item.title }}</h3>
+        <p>{{ item.subTitle }}</p>
+      </div>
+    </div>
+  </div>
+
+  <app-product-card></app-product-card>
+  <div class="more-button">
+    <button><mat-icon>remove_red_eye</mat-icon>VIEW ALL DEALS</button>
+  </div>
+</div>

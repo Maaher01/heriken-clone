@@ -1,0 +1,54 @@
+<mat-drawer-container class="container" [hasBackdrop]="true">
+  <mat-drawer class="cart-drawer" position="end" #drawer>
+    <div class="card-top">
+      <div class="close-drawer">
+        <mat-icon (click)="drawer.toggle()">close</mat-icon>
+      </div>
+      <div class="item-sec">
+        <mat-icon>shopping_basket</mat-icon>
+        <p>Total Items (00)</p>
+      </div>
+    </div>
+    <div class="card-main">
+      <div class="cart-items" *ngFor="let product of cartProducts">
+        <img [src]="product.images" />
+        <div class="prod-text">
+          <h4>{{ product.productName | truncate : 25 }}</h4>
+          <span>Unit Price: ৳{{ product.price | number }}</span>
+          <div class="quantity-total">
+            <div class="quantity">
+              <button (click)="decreaseQuantity(product._id)" [disabled]="product.quantity <= 1">
+                <i class="fa fa-minus" aria-hidden="true"></i>
+              </button>
+              <input type="text" [(ngModel)]="quantity" readonly value="{{ product.quantity }}" />
+              <button (click)="increaseQuantity(product._id)">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+              </button>
+            </div>
+            <p>৳{{product.price * product.quantity | number}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-bottom">
+      <a [routerLink]="['/pages/checkout']" (click)="drawer.toggle()">
+        <p>Proceed to Checkout</p>
+        <span>৳0</span>
+      </a>
+    </div>
+  </mat-drawer>
+  <mat-drawer-content class="drawer-content">
+    <div class="header-area">
+      <app-header></app-header>
+    </div>
+    <div class="all-page-render-area">
+      <router-outlet></router-outlet>
+    </div>
+    <div class="footer-area">
+      <app-footer></app-footer>
+    </div>
+    <app-scroll-button></app-scroll-button>
+    <bottom-nav></bottom-nav>
+    <cart-box (click)="drawer.toggle()"></cart-box>
+  </mat-drawer-content>
+</mat-drawer-container>

@@ -1,0 +1,85 @@
+<div class="top-container">
+  <div class="header">
+    <img class="logo" [routerLink]="['/']" src="assets/icons/logo.png" />
+    <div class="search-bar">
+      <input type="text" class="search" placeholder="Search products in Heriken..." />
+      <mat-icon>search</mat-icon>
+    </div>
+
+    <div class="account-section" *ngIf="isLoggedIn()">
+      <div class="account-icon">
+        <mat-icon>account_circle</mat-icon>
+      </div>
+      <div class="drop-arrow">
+        <mat-icon (click)="toggleAccountDropdown()">arrow_drop_down</mat-icon>
+        <div class="account-dropdown" *ngIf="showAccountMenu">
+          <a (click)="logout();toggleAccountDropdown()">Logout</a>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="!isLoggedIn()" class="account-section" [routerLink]="['/pages/auth']" matTooltip="Login/Register">
+      <div class="account-icon">
+        <mat-icon>account_circle</mat-icon>
+      </div>
+    </div>
+
+    <!-- <div class="action-icons">
+      <div matTooltip="Wishlist">
+        <mat-icon>favorite</mat-icon>
+        <div class="fav-count icon">
+          <span>00</span>
+        </div>
+      </div>
+      <div matTooltip="Compare">
+        <mat-icon>compare_arrows</mat-icon>
+        <div class="comp-count icon">
+          <span>00</span>
+        </div>
+      </div>
+    </div> -->
+  </div>
+
+  <!-- Responsive Header -->
+  <div class="res-header">
+    <div class="account">
+      <mat-icon>account_circle</mat-icon>
+    </div>
+    <img class="logo" [routerLink]="['/']" src="assets/icons/logo.png" />
+    <div class="res-search" *ngIf="!showSearchBox" (click)="toggleSearchBox()">
+      <mat-icon>search</mat-icon>
+    </div>
+    <div class="cross" *ngIf="showSearchBox" (click)="toggleSearchBox()">
+      <mat-icon>close</mat-icon>
+    </div>
+  </div>
+  <!-- Navbar Starts -->
+  <div class="navbar">
+    <ul>
+      <li [routerLink]="['/']">Home</li>
+      <li [routerLink]="['/pages/allproducts']">Products</li>
+      <li class="categories" (click)="toggleCategoryDropdown()">
+        <h3>
+          <mat-icon>category</mat-icon>
+          <span>TOP CATEGORIES</span>
+        </h3>
+      </li>
+      <div class="main-categories" *ngIf="showCategoryMenu">
+        <a>Health & Beauty</a>
+        <a>Digital Marketing</a>
+        <a>Groceries</a>
+        <a>Kids Toys</a>
+        <a>Leather</a>
+        <a>Gadgets</a>
+        <a>Health Food</a>
+        <a class="last-item">Women's Clothing</a>
+      </div>
+    </ul>
+  </div>
+  <!-- Responsive Search Box -->
+  <div class="res-box" *ngIf="showSearchBox">
+    <div>
+      <input placeholder="Search products in Heriken..." />
+      <mat-icon>search</mat-icon>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,189 @@
+<div class="container">
+  <div class="left-area">
+    <!-- Responsive Product Card -->
+    <div class="product-card" *ngFor="let product of cartProducts">
+      <img [src]="product.images" />
+      <div class="info">
+        <div class="title">{{ product.productName | truncate : 50 }}</div>
+        <p>Quantity: {{ product.quantity }}</p>
+        <h3>{{ product.price | number }}</h3>
+      </div>
+    </div>
+    <div class="table">
+      <table mat-table [dataSource]="cartProducts">
+        <ng-container matColumnDef="Serial">
+          <th mat-header-cell *matHeaderCellDef class="serial-header">SL</th>
+          <td mat-cell *matCellDef="let product; let i = index;">{{ i + 1 }}</td>
+        </ng-container>
+        <ng-container matColumnDef="Product">
+          <th mat-header-cell *matHeaderCellDef class="product-header">
+            Product
+          </th>
+          <td mat-cell *matCellDef="let product" class="product-data">
+            <img class="product-img" [src]="product.images" />
+            <div class="product-name">
+              {{ product.productName | truncate : 50 }}
+            </div>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="Price">
+          <th mat-header-cell *matHeaderCellDef class="price-header">Price</th>
+          <td mat-cell *matCellDef="let product">{{ product.price | number }}</td>
+        </ng-container>
+        <ng-container matColumnDef="Discount">
+          <th mat-header-cell *matHeaderCellDef class="discount-header">
+            Discount
+          </th>
+          <td mat-cell *matCellDef="let product">{{ product.discountAmount | number }}</td>
+        </ng-container>
+        <ng-container matColumnDef="Quantity">
+          <th mat-header-cell *matHeaderCellDef class="quantity-header">
+            Quantity
+          </th>
+          <td mat-cell *matCellDef="let product" class="quantity-data">
+            <button (click)="decreaseQuantity(product._id)" [disabled]="product.quantity <= 1">
+              <i class="fa fa-minus" aria-hidden="true"></i></button>
+            <input type="text" [(ngModel)]="quantity" readonly value="{{ product.quantity }}" />
+            <button (click)="increaseQuantity(product._id)">
+              <i class="fa fa-plus" aria-hidden="true"></i>
+            </button>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="Total">
+          <th mat-header-cell *matHeaderCellDef class="total-header">Total</th>
+          <td mat-cell *matCellDef="let product" class="total-data">
+            ৳{{product.price * product.quantity | number}}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="Action">
+          <th mat-header-cell *matHeaderCellDef class="action-header">
+            Action
+          </th>
+          <td mat-cell *matCellDef="let product">
+            <div class="delete-icon" (click)="deleteItemFromCart(product?._id)">
+              <mat-icon>delete</mat-icon>
+            </div>
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    </div>
+    <div class="note-area">
+      <mat-form-field appearance="outline">
+        <mat-label>Special Notes...</mat-label>
+        <textarea matInput rows="5" cols="10"></textarea>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="right-area">
+    <form [formGroup]="checkoutForm">
+      <div class="address-area">
+        <h3>
+          অর্ডার কনফার্ম করতে আপনার নাম, মোবাইল নাম্বর,ঠিকানা লিখে " অর্ডার করুন
+          " বাটনে ক্লিক করুন।
+        </h3>
+        <div class="form-input">
+          <h3>নাম:</h3>
+          <mat-form-field appearance="outline">
+            <input type="text" matInput formControlName="name" />
+          </mat-form-field>
+        </div>
+        <div class="form-input">
+          <h3>মোবাইল নম্বর:</h3>
+          <mat-form-field appearance="outline">
+            <input matInput formControlName="mobile" numbersOnly />
+            <div *ngIf="
+                checkoutForm.controls['mobile']?.dirty ||
+                (checkoutForm.controls['mobile']?.touched &&
+                  checkoutForm.controls['mobile'].invalid)
+              ">
+              <mat-error *ngIf="checkoutForm.controls['mobile']?.hasError('minlength')">দয়া করে একটি বৈধ 11 সংখ্যার ফোন
+                নম্বর লিখুন৷</mat-error>
+              <mat-error *ngIf="checkoutForm.controls['mobile']?.hasError('maxlength')">দয়া করে একটি বৈধ 11 সংখ্যার ফোন
+                নম্বর লিখুন৷</mat-error>
+            </div>
+          </mat-form-field>
+        </div>
+        <div class="form-input">
+          <h3>ঠিকানা:</h3>
+          <mat-form-field appearance="outline">
+            <mat-label>Enter your address here...</mat-label>
+            <textarea matInput formControlName="address"></textarea>
+          </mat-form-field>
+        </div>
+        <div class="form-input">
+          <h3>ডেলিভারি:</h3>
+          <div class="radio-area">
+            <mat-radio-group formControlName="deliveryLocation">
+              <mat-radio-button value="1">ঢাকার ভিতরে (৬০ টাকা)</mat-radio-button>
+              <mat-radio-button value="2">ঢাকার বাহিরে (১২০ টাকা)</mat-radio-button>
+            </mat-radio-group>
+          </div>
+        </div>
+      </div>
+      <div class="payment-area">
+        <div class="step-2">
+          <h3>পেমেন্ট মেথড সিলেক্ট করুন</h3>
+          <div class="safety">
+            <div class="lock-icon">
+              <mat-icon>lock</mat-icon>
+            </div>
+            <div>সম্পুর্ণ নিরাপদ পেমেন্ট</div>
+          </div>
+        </div>
+        <mat-radio-group formControlName="payMethod">
+          <div class="pay-area">
+            <div class="pay-box">
+              <mat-radio-button value="1">ক্যাশ অন ডেলিভারি</mat-radio-button>
+            </div>
+            <div class="warn">
+              <mat-icon>check_circle</mat-icon>
+              <span>পণ্য হাতে পেয়ে মূল্য পরিশোধ করুন</span>
+            </div>
+          </div>
+          <div class="pay-area">
+            <div class="pay-box">
+              <mat-radio-button value="2">বিকাশ</mat-radio-button>
+              <img src="assets/icons/bkash_payment_logo.png" width="100px" />
+            </div>
+            <div class="warn">
+              <mat-icon>check_circle</mat-icon>
+              <span>বিকাশে পেমেন্টে ডেলিভারি চার্জ ফ্রী</span>
+            </div>
+          </div>
+          <div class="pay-area">
+            <div class="pay-box">
+              <mat-radio-button value="3">অন্যান্য পেমেন্ট মাধ্যম</mat-radio-button>
+              <img src="assets/icons/other-payment-mothod-logo.jpeg" width="150px" />
+            </div>
+          </div>
+        </mat-radio-group>
+      </div>
+      <div class="payment-summary">
+        <h3>Order Summary</h3>
+        <ul>
+          <li>
+            <div>Sub Total:</div>
+            <div>999Tk</div>
+          </li>
+          <li>
+            <div>Delivery Charge</div>
+            <div>60Tk</div>
+          </li>
+          <hr />
+          <li>
+            <div>Total</div>
+            <div class="total">
+              <span>Save 401Tk</span>
+              <div>1,059Tk</div>
+            </div>
+          </li>
+        </ul>
+        <div class="order-button">
+          <button [disabled]="checkoutForm.invalid">অর্ডার করুন</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

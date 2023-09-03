@@ -1,0 +1,30 @@
+.cart-box {
+  position: fixed;
+  top: 50%;
+  right: 0;
+  width: 80px;
+  background-color: white;
+  border: 1px solid #70c332;
+  text-align: center;
+  border-radius: 5px;
+  cursor: pointer;
+
+  @media only screen and (max-width: 991px) {
+    display: none;
+  }
+
+  .top {
+    background-color: #70c332;
+    padding: 8px 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+  }
+
+  .card-price {
+    color: #70c332;
+    padding: 4px;
+  }
+}

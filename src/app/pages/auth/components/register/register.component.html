@@ -1,0 +1,113 @@
+<div class="container">
+    <div class="form-area">
+        <div class="form-top">
+            <h3>Welcome!</h3>
+            <p>Enter your information to register</p>
+        </div>
+        <form [formGroup]="userRegisterForm" (ngSubmit)="registerUser()">
+            <div class="form-main">
+                <div class="form-input">
+                    <div class="form-input-main">
+                        <input type="email" placeholder="Enter an Email" formControlName="email" />
+                        <div *ngIf="
+                  userRegisterForm.controls['email']?.dirty ||
+                  (userRegisterForm.controls['email']?.touched &&
+                    userRegisterForm.controls['email'].invalid)
+                ">
+                            <mat-error *ngIf="
+                    userRegisterForm.controls['email']?.hasError('required')
+                  ">Email is required</mat-error>
+                            <mat-error *ngIf="
+                    userRegisterForm.controls['email']?.hasError('email')
+                  ">Please enter a valid email</mat-error>
+                        </div>
+                    </div>
+                    <div class="form-input-main">
+                        <input type="password" placeholder="Enter a Password" formControlName="password" />
+                        <div *ngIf="
+                  userRegisterForm.controls['password']?.dirty ||
+                  (userRegisterForm.controls['password']?.touched &&
+                    userRegisterForm.controls['password'].invalid)
+                ">
+                            <mat-error *ngIf="
+                    userRegisterForm.controls['password']?.hasError('required')
+                  ">Password is required</mat-error>
+                            <mat-error *ngIf="userRegisterForm.controls['password']?.hasError('minlength')">
+                                Please enter a password of atleast 5 characters
+                            </mat-error>
+                        </div>
+                    </div>
+                    <div class="form-input-main">
+                        <input type="text" placeholder="Enter Your Full Name" formControlName="fullName" />
+                        <div *ngIf="
+                  userRegisterForm.controls['fullName']?.dirty ||
+                  (userRegisterForm.controls['fullName']?.touched &&
+                    userRegisterForm.controls['fullName'].invalid)
+                ">
+                            <mat-error *ngIf="
+                    userRegisterForm.controls['fullName']?.hasError('required')
+                  ">Full Name is required</mat-error>
+                        </div>
+                    </div>
+                    <div class="form-input-main">
+                        <input type="text" placeholder="Enter Your Address" formControlName="address" />
+                        <div *ngIf="
+                  userRegisterForm.controls['address']?.dirty ||
+                  (userRegisterForm.controls['address']?.touched &&
+                    userRegisterForm.controls['address'].invalid)
+                ">
+                            <mat-error *ngIf="
+                    userRegisterForm.controls['address']?.hasError('required')
+                  ">Address is required</mat-error>
+                        </div>
+                    </div>
+                    <div class="form-input-main">
+                        <input placeholder="Enter Your Phone Number" formControlName="phoneNo" numbersOnly />
+                        <div *ngIf="
+                  userRegisterForm.controls['phoneNo']?.dirty ||
+                  (userRegisterForm.controls['phoneNo']?.touched &&
+                    userRegisterForm.controls['phoneNo'].invalid)
+                ">
+                            <mat-error *ngIf="
+                    userRegisterForm.controls['phoneNo']?.hasError('required')
+                  ">Phone Number is required</mat-error>
+                            <mat-error *ngIf="
+                    userRegisterForm.controls['phoneNo']?.hasError('minlength')
+                  ">Please enter a valid 11 digit number</mat-error>
+                            <mat-error *ngIf="
+                    userRegisterForm.controls['phoneNo']?.hasError('maxlength')
+                  ">Please enter a valid 11 digit number</mat-error>
+                        </div>
+                    </div>
+                    <div class="form-input-main">
+                        <select formControlName="gender">
+                            <option value="" disabled selected hidden>Select Your Gender</option>
+                            <option>Male</option>
+                            <option>Female</option>
+                            <option>Others</option>
+                        </select>
+                        <div *ngIf="
+                  userRegisterForm.controls['gender']?.dirty ||
+                  (userRegisterForm.controls['gender']?.touched &&
+                    userRegisterForm.controls['gender'].invalid)
+                ">
+                            <mat-error *ngIf="
+                    userRegisterForm.controls['gender']?.hasError('required')
+                  ">Gender is required</mat-error>
+                        </div>
+                    </div>
+                </div>
+                <div class="error-response" *ngIf="errorResponse">
+                    <strong>{{errorResponse}}</strong>
+                </div>
+                <div class="form-sub-btn">
+                    <button [disabled]="userRegisterForm.invalid">Register</button>
+                </div>
+                <div class="login-text">
+                    Already have an account? <span class="login-router" [routerLink]="['/pages/auth']">Login
+                        now!</span>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

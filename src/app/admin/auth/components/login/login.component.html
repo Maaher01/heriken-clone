@@ -1,0 +1,47 @@
+<div class="container">
+    <div class="form-area">
+        <div class="form-top">
+            <h3>Welcome Admin</h3>
+            <p>Enter your username and password to login</p>
+        </div>
+        <form [formGroup]="adminLoginForm" (ngSubmit)="loginAdmin()">
+            <div class="form-main">
+                <div class="form-input">
+                    <div class="form-input-main">
+                        <input type="text" placeholder="Enter your Username" formControlName="username" />
+                        <div *ngIf="
+                  adminLoginForm.controls['username']?.dirty ||
+                  (adminLoginForm.controls['username']?.touched &&
+                    adminLoginForm.controls['username'].invalid)
+                ">
+                            <mat-error *ngIf="
+                    adminLoginForm.controls['username']?.hasError('required')
+                  ">Email is required</mat-error>
+                        </div>
+                    </div>
+                    <div class="form-input-main">
+                        <input type="password" placeholder="Enter your Password" formControlName="password" />
+                        <div *ngIf="
+                  adminLoginForm.controls['password']?.dirty ||
+                  (adminLoginForm.controls['password']?.touched &&
+                    adminLoginForm.controls['password'].invalid)
+                ">
+                            <mat-error *ngIf="
+                    adminLoginForm.controls['password']?.hasError('required')
+                  ">Password is required</mat-error>
+                        </div>
+                    </div>
+                </div>
+                <div class="error-response" *ngIf="errorResponse">
+                    <strong>{{errorResponse}}</strong>
+                </div>
+                <div class="form-sub-btn">
+                    <button [disabled]="adminLoginForm.invalid">Login</button>
+                </div>
+                <div class="bottom-text">
+                    <span class="forgot-router" [routerLink]="['/admin/auth/forgot-password']">Forgot Password?</span>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
