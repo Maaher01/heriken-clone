@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Route } from '@angular/router';
+import { Product } from '../models/product';
 
 @Component({
   selector: 'app-pages',
@@ -7,19 +7,23 @@ import { Route } from '@angular/router';
   styleUrls: ['./pages.component.scss'],
 })
 export class PagesComponent implements OnInit {
-  cartProducts: any;
+  cartProducts: Product[];
+  cartProdQuantity: number = 0;
   product: any;
   quantity: number = 1;
   totalPrice: number;
+  subTotal: number = 0;
 
   constructor() {}
 
   ngOnInit(): void {
-    this.getCartProducts();
+    this.getCartProductQuantity();
+    this.getCartSubTotal()
   }
 
-  getCartProducts() {
+  getCartProductQuantity() {
     this.cartProducts = JSON.parse(localStorage.getItem('cartProducts'));
+    this.cartProdQuantity = this.cartProducts.length;
   }
 
   increaseQuantity(productId) {
@@ -32,5 +36,11 @@ export class PagesComponent implements OnInit {
     this.product = this.cartProducts.find((m) => m?._id == productId);
     this.product.quantity = this.product.quantity - 1;
     return this.product.quantity;
+  }
+
+  getCartSubTotal() {
+    this.subTotal = this.cartProducts
+      .map((m) => m.price)
+      .reduce((acc: number, value: number) => acc + value, 0);
   }
 }

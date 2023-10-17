@@ -1,0 +1,132 @@
+.header {
+  .background {
+    height: 30.9rem;
+    background-image: url("../../../../assets/images/poster.png");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    filter: contrast(40%);
+    transform: skewY(5deg);
+    transform-origin: 100%;
+
+    @media (max-width: 699px) {
+      height: 20rem !important;
+      transform: skewY(0deg);
+    }
+  }
+  .content {
+    width: 96vw;
+    position: absolute;
+    top: 0;
+    display: flex;
+    justify-content: space-between;
+
+    .content-text {
+      width: 60%;
+      margin-top: 10rem;
+      margin-left: 10rem;
+      padding: 20px 50px;
+
+      @media (max-width: 885px) {
+        width: 50rem !important;
+        h3 {
+          font-size: 1.5rem !important;
+        }
+
+        h2 {
+          font-size: 2.3rem !important;
+          padding-bottom: 0px !important;
+        }
+
+        h1 {
+          font-size: 3rem !important;
+          padding-bottom: 0px !important;
+        }
+
+        .shop-offer {
+          gap: 5px;
+
+          p {
+            font-size: 1rem !important;
+          }
+        }
+
+        @media (max-width: 699px) {
+          margin-top: 5rem;
+          margin-left: 2rem;
+          width: 40rem !important;
+          h3 {
+            font-size: 1rem !important;
+          }
+
+          h2 {
+            font-size: 2rem !important;
+            padding-bottom: 0px !important;
+          }
+
+          h1 {
+            font-size: 2.5rem !important;
+            padding-bottom: 0px !important;
+          }
+
+          .shop-offer {
+            button {
+              font-size: 0.8rem !important;
+            }
+          }
+        }
+      }
+
+      h3 {
+        font-size: 2rem;
+        color: #084d49;
+        font-weight: 600;
+      }
+
+      h2 {
+        font-family: "Dancing Script", cursive;
+        font-weight: 700;
+        font-size: 3rem;
+        color: #3b3b3b;
+        padding-bottom: 20px;
+      }
+
+      h1 {
+        font-size: 4.5rem;
+        font-weight: 800;
+        padding-bottom: 20px;
+      }
+
+      .shop-offer {
+        display: flex;
+        gap: 10px;
+
+        p {
+          font-size: 2rem;
+          font-weight: 600;
+          color: rgb(167, 194, 124);
+        }
+
+        button {
+          padding: 10px;
+          color: #fff;
+          font-weight: 600;
+          font-size: 1rem;
+          cursor: pointer;
+          border: none;
+        }
+
+        .value {
+          width: 4rem;
+          height: 2.5rem;
+          transform: rotate(-5deg);
+          background-color: rgb(218, 128, 96);
+        }
+
+        .shop {
+          background-color: #111;
+        }
+      }
+    }
+  }
+}

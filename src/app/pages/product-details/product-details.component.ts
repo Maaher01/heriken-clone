@@ -4,6 +4,7 @@ import { MoreDetailsComponent } from './more-details/more-details.component';
 import { CustomerReviewsComponent } from './customer-reviews/customer-reviews.component';
 import { ProductService } from 'src/app/shared/services/product.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Product } from 'src/app/models/product';
 
 @Component({
   selector: 'app-product-details',
@@ -15,7 +16,7 @@ export class ProductDetailsComponent implements OnInit {
   product: any;
   products: any;
   productData: any;
-  cartProducts: Array<any> = [];
+  cartProducts: Array<Product> = [];
   cartData: any;
   currentProducts: any;
 
@@ -32,9 +33,14 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   getProductById(id: any) {
-    this.productService.getProductById(id).subscribe((product) => {
-      this.productData = product;
-      this.product = this.productData.data;
+    this.productService.getProductById(id).subscribe({
+      next: (product) => {
+        this.productData = product;
+        this.product = this.productData.data;
+      },
+      error: (err) => {
+        console.log(err);
+      },
     });
   }
 

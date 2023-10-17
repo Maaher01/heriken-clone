@@ -6,7 +6,7 @@
       </div>
       <div class="item-sec">
         <mat-icon>shopping_basket</mat-icon>
-        <p>Total Items (00)</p>
+        <p>Total Items ({{cartProdQuantity | number : '2.0-0'}})</p>
       </div>
     </div>
     <div class="card-main">
@@ -33,7 +33,7 @@
     <div class="card-bottom">
       <a [routerLink]="['/pages/checkout']" (click)="drawer.toggle()">
         <p>Proceed to Checkout</p>
-        <span>৳0</span>
+        <span>৳{{subTotal | number}}</span>
       </a>
     </div>
   </mat-drawer>

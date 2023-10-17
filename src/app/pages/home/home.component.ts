@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ProductService } from 'src/app/shared/services/product.service';
+import { Product } from 'src/app/models/product';
 
 @Component({
   selector: 'app-home',
@@ -6,30 +8,25 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  constructor() {}
+  productData: any;
+  products: Product[]; 
+  cartProducts: any[];
 
-  ngOnInit(): void {}
+  constructor(private productService: ProductService) {}
 
-  list = [
-    {
-      title: 'HOME DELIVERY',
-      subTitle: '24-72 Hours',
-      icon: 'bi-truck',
-    },
-    {
-      title: 'Best Warranty Policy',
-      subTitle: 'With A 30 Day',
-      icon: 'bi-arrow-repeat',
-    },
-    {
-      title: 'SECURE SHOPPING',
-      subTitle: '100% Safe Transactions',
-      icon: 'bi-headset',
-    },
-    {
-      title: 'ORDER PLACED',
-      subTitle: 'Total 1,84,560 +',
-      icon: 'bi-lock-fill',
-    },
-  ];
+  ngOnInit(): void {
+    this.getAllProducts()
+  }
+
+  getAllProducts() {
+    this.productService.getAllProducts().subscribe({
+      next: (results) => {
+        this.productData = results;
+        this.products = this.productData.data;
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
+  }
 }

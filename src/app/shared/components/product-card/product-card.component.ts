@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ProductService } from 'src/app/shared/services/product.service';
+import { Product } from 'src/app/models/product';
 
 @Component({
   selector: 'app-product-card',
@@ -8,37 +8,28 @@ import { ProductService } from 'src/app/shared/services/product.service';
   styleUrls: ['./product-card.component.scss'],
 })
 export class ProductCardComponent implements OnInit {
-  productData: any;
-  products: any;
-  cartData: any;
-  cartProducts: Array<any> = [];
-  currentProducts: any;
+  @Input() product: Product;
 
-  constructor(
-    private productService: ProductService,
-    private snackBar: MatSnackBar
-  ) {}
+  cartProducts: Product[];
+
+  constructor(private snackBar: MatSnackBar) {}
 
   ngOnInit(): void {
-    this.getAllProducts();
+    
   }
 
-  getAllProducts() {
-    this.productService.getAllProducts().subscribe((results) => {
-      (this.productData = results), (this.products = this.productData.data);
-    });
-  }
-
-  addToCart(productId, message: string) {
-    this.currentProducts = JSON.parse(localStorage.getItem('cartProducts'));
-    if (this.currentProducts == null) {
-      this.currentProducts = [];
+  addToCart(message: string) {
+    this.cartProducts = JSON.parse(localStorage.getItem('cartProducts'));
+    if (this.cartProducts == null) {
+      this.cartProducts = [];
     }
-    this.cartData = this.products.find((m) => m?._id == productId);
-    this.currentProducts.push(this.cartData);
-    let unique = [...new Set(this.currentProducts)];
+
+    this.cartProducts.push(this.product);
+
+    let unique = [...new Set(this.cartProducts)];
     const products = JSON.stringify(unique);
     localStorage.setItem('cartProducts', products);
+
     this.snackBar.open(message, '', {
       duration: 1500,
       panelClass: ['snackbar'],
