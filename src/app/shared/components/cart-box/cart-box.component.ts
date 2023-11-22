@@ -14,18 +14,18 @@ export class CartBoxComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    this.getCartProductQuantity();
-    this.getCartSubTotal();
+    // this.getCartProductQuantity();
+    // this.getCartSubTotal();
   }
 
-  getCartProductQuantity() {
-    this.cartProducts = JSON.parse(localStorage.getItem('cartProducts'));
-    this.cartProdQuantity = this.cartProducts.length;
-  }
+  // getCartProductQuantity() {
+  //   this.cartProducts = JSON.parse(localStorage.getItem('cartProducts'));
+  //   this.cartProdQuantity = this.cartProducts.length;
+  // }
 
-  getCartSubTotal() {
-    this.subTotal = this.cartProducts
-      .map((m) => m.price)
-      .reduce((acc: number, value: number) => acc + value, 0);
-  }
+  // getCartSubTotal() {
+  //   this.subTotal = this.cartProducts
+  //     .map((m) => m.price)
+  //     .reduce((acc: number, value: number) => acc + value, 0);
+  // }
 }

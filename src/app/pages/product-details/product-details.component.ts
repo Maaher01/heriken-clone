@@ -44,22 +44,6 @@ export class ProductDetailsComponent implements OnInit {
     });
   }
 
-  addToCart(productId, message: string) {
-    this.currentProducts = JSON.parse(localStorage.getItem('cartProducts'));
-    if (this.currentProducts == null) {
-      this.currentProducts = [];
-    }
-    this.cartData = this.products.find((m) => m?._id == productId);
-    this.currentProducts.push(this.cartData);
-    let unique = [...new Set(this.currentProducts)];
-    const products = JSON.stringify(unique);
-    localStorage.setItem('cartProducts', products);
-    this.snackBar.open(message, '', {
-      duration: 1500,
-      panelClass: ['snackbar'],
-    });
-  }
-
   assignDetailsOrReviews(component) {
     if (component === 'more-details') {
       this.detailsAndRatingSection = MoreDetailsComponent;

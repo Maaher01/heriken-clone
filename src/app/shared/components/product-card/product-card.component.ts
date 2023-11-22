@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Product } from 'src/app/models/product';
+import { CartService } from '../../services/cart.service';
+import { UserService } from 'src/app/pages/auth/services/user.service';
 
 @Component({
   selector: 'app-product-card',
@@ -9,30 +11,33 @@ import { Product } from 'src/app/models/product';
 })
 export class ProductCardComponent implements OnInit {
   @Input() product: Product;
+  public currentUser: any;
 
-  cartProducts: Product[];
-
-  constructor(private snackBar: MatSnackBar) {}
+  constructor(
+    private snackBar: MatSnackBar,
+    private userService: UserService,
+    private cartService: CartService
+  ) {}
 
   ngOnInit(): void {
-    
+    this.userService.currentUser$.subscribe(
+      (user) => (this.currentUser = user)
+    );
   }
 
-  addToCart(message: string) {
-    this.cartProducts = JSON.parse(localStorage.getItem('cartProducts'));
-    if (this.cartProducts == null) {
-      this.cartProducts = [];
-    }
+  addToCart(productId: any) {
+    const userId = this.currentUser._id;
 
-    this.cartProducts.push(this.product);
-
-    let unique = [...new Set(this.cartProducts)];
-    const products = JSON.stringify(unique);
-    localStorage.setItem('cartProducts', products);
-
-    this.snackBar.open(message, '', {
-      duration: 1500,
-      panelClass: ['snackbar'],
+    this.cartService.addToCart(userId, productId).subscribe({
+      next: () => {
+        this.snackBar.open("Added to cart successfully", '', {
+          duration: 1500,
+          panelClass: ['snackbar'],
+        });
+      },
+      error: (err) => {
+        console.log(err);
+      },
     });
   }
 }

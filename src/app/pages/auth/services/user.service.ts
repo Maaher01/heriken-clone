@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { tap } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { User } from 'src/app/models/user';
 
 @Injectable({
   providedIn: 'root',
@@ -10,8 +11,16 @@ import { tap } from 'rxjs';
 export class UserService {
   apiUrl = environment.baseUrl + 'user/';
   refreshTokenInterval: any;
+  private currentUserSubject: BehaviorSubject<User | null>;
+  public currentUser$: Observable<User | null>;
+  user: any;
+  userData: User;
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router) {
+    this.currentUserSubject = new BehaviorSubject(null);
+    this.currentUser$ = this.currentUserSubject.asObservable();
+    this.getUserInfo();
+  }
 
   register(data: any) {
     return this.http.post(this.apiUrl + 'registration', data);
@@ -19,6 +28,18 @@ export class UserService {
 
   login(data: any) {
     return this.http.put(this.apiUrl + 'login', data);
+  }
+
+  getUserInfo() {
+    this.http.get(this.apiUrl + 'logged-in-user-data').subscribe({
+      next: (result: any) => {
+        this.userData = result.data;
+        this.currentUserSubject.next(this.userData);
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
   }
 
   isLoggedIn() {

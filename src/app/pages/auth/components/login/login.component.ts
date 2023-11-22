@@ -25,18 +25,18 @@ export class LoginComponent {
 
   loginUser() {
     if (this.userLoginForm.valid) {
-      this.userService.login(this.userLoginForm.value).subscribe(
-        (result) => {
+      this.userService.login(this.userLoginForm.value).subscribe({
+        next: (result) => {
           if (result != null) {
             this.responseData = result;
             localStorage.setItem('token', this.responseData.token);
             this.router.navigate(['/']);
           }
         },
-        (err) => {
+        error: (err) => {
           this.errorResponse = err.error.message;
-        }
-      );
+        },
+      });
     }
   }
 }

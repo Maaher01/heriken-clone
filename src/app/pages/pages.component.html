@@ -6,34 +6,34 @@
       </div>
       <div class="item-sec">
         <mat-icon>shopping_basket</mat-icon>
-        <p>Total Items ({{cartProdQuantity | number : '2.0-0'}})</p>
+        <!-- <p>Total Items ({{cartProdQuantity | number : '2.0-0'}})</p> -->
       </div>
     </div>
     <div class="card-main">
-      <div class="cart-items" *ngFor="let product of cartProducts">
-        <img [src]="product.images" />
+      <!-- <div class="cart-items" *ngFor="let product of cartProducts"> -->
+        <!-- <img [src]="product.images" /> -->
         <div class="prod-text">
-          <h4>{{ product.productName | truncate : 25 }}</h4>
-          <span>Unit Price: ৳{{ product.price | number }}</span>
+          <!-- <h4>{{ product.productName | truncate : 25 }}</h4> -->
+          <!-- <span>Unit Price: ৳{{ product.price | number }}</span> -->
           <div class="quantity-total">
             <div class="quantity">
-              <button (click)="decreaseQuantity(product._id)" [disabled]="product.quantity <= 1">
+              <!-- <button [disabled]="product.quantity <= 1"> -->
                 <i class="fa fa-minus" aria-hidden="true"></i>
-              </button>
-              <input type="text" [(ngModel)]="quantity" readonly value="{{ product.quantity }}" />
-              <button (click)="increaseQuantity(product._id)">
+              <!-- </button> -->
+              <!-- <input type="text" [(ngModel)]="quantity" readonly value="{{ product.quantity }}" /> -->
+              <button>
                 <i class="fa fa-plus" aria-hidden="true"></i>
               </button>
             </div>
-            <p>৳{{product.price * product.quantity | number}}</p>
+            <!-- <p>৳{{product.price * product.quantity | number}}</p> -->
           </div>
         </div>
       </div>
-    </div>
+    <!-- </div> -->
     <div class="card-bottom">
       <a [routerLink]="['/pages/checkout']" (click)="drawer.toggle()">
         <p>Proceed to Checkout</p>
-        <span>৳{{subTotal | number}}</span>
+        <!-- <span>৳{{subTotal | number}}</span> -->
       </a>
     </div>
   </mat-drawer>
