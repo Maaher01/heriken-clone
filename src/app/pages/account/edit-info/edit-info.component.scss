@@ -1,0 +1,22 @@
+.heading-close-box {
+  padding: 0 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+mat-dialog-content {
+  display: grid;
+  gap: 15px;
+  grid-template-columns: repeat(2, 1fr);
+  margin-top: 35px;
+}
+
+mat-form-field {
+  margin: 0 3px;
+}
+
+mat-dialog-actions button {
+  margin: 10px 0 15px 0;
+  width: 100%;
+}

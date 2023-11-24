@@ -3,6 +3,7 @@ import { ProductService } from 'src/app/shared/services/product.service';
 import { Product } from 'src/app/models/product';
 import { UserService } from '../auth/services/user.service';
 import { CartService } from 'src/app/shared/services/cart.service';
+import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-home',
@@ -24,10 +25,21 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllProducts();
-    this.userService.currentUser$.subscribe({
-      next: (user) => {
-        this.currentUser = user;
-        this.getUserCart();
+    this.userService.currentUser$.subscribe((user) => {
+      this.currentUser = user;
+      if(this.currentUser)
+      console.log(this.currentUser);
+    });
+  }
+
+  getUserCart() {
+    const userId = this.currentUser._id;
+
+    this.cartService.getUserCart(userId).subscribe({
+      next: (result) => {
+        console.log(userId);
+        this.cartData = result;
+        this.cartProducts = this.cartData.data;
       },
       error: (err) => {
         console.log(err);
@@ -45,22 +57,5 @@ export class HomeComponent implements OnInit {
         console.log(err);
       },
     });
-  }
-
-  getUserCart() {
-    if (this.currentUser) {
-      const userId = this.currentUser._id;
-
-      this.cartService.getUserCart(userId).subscribe({
-        next: (result) => {
-          this.cartData = result;
-          this.cartProducts = this.cartData.data;
-          console.log(this.cartProducts);
-        },
-        error: (err) => {
-          console.log(err);
-        },
-      });
-    }
   }
 }

@@ -1,0 +1,36 @@
+<div class="header">
+    <h1>Personal Information</h1>
+    <button mat-button (click)="openEditDialog(currentUser)">
+        <span>Edit</span>
+    </button>
+</div>
+<div class="data-area">
+    <table class="data-table">
+        <tbody>
+            <tr>
+                <td class="label">Full Name</td>
+                <td class="value">{{currentUser?.fullName}}</td>
+            </tr>
+            <tr>
+                <td class="label">Phone No.</td>
+                <td class="value">{{currentUser?.phoneNo}}</td>
+            </tr>
+            <tr>
+                <td class="label" *ngIf="currentUser?.email">Email</td>
+                <td class="value">{{currentUser?.email}}</td>
+            </tr>
+            <tr>
+                <td class="label">Address</td>
+                <td class="value">{{currentUser?.address}}</td>
+            </tr>
+            <tr>
+                <td class="label">Gender</td>
+                <td class="value">{{currentUser?.gender}}</td>
+            </tr>
+            <tr>
+                <td class="label">Member Since</td>
+                <td class="value">{{currentUser?.createdAt | date}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

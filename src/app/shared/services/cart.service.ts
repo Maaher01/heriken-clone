@@ -17,8 +17,8 @@ export class CartService {
   }
 
   getUserCart(userId: string) {
-    const params = { userId };
-
-    return this.http.get(this.apiUrl + 'get-user-cart', { params });
+    const params = {userId}
+    
+    return this.http.get(this.apiUrl + 'get-user-cart', {params});
   }
 }

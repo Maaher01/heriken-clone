@@ -1,0 +1,64 @@
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 0;
+  border-bottom: 1px solid #cccccc;
+  padding-bottom: 6px;
+
+  h1 {
+    font-size: 18px;
+    color: #5d5d5d;
+    margin: 0;
+    text-transform: uppercase;
+  }
+
+  button {
+    position: relative;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    text-align: center;
+    min-width: 64px;
+    padding: 0 16px;
+    border-radius: 4px;
+    overflow: visible;
+    background: transparent;
+    font-size: 14px;
+    color: #5d5d5d;
+    font-weight: 700;
+
+    &:hover {
+      background-color: #edf2f7;
+    }
+  }
+}
+
+.data-area {
+  .data-table {
+    margin-top: 16px;
+    background-color: transparent;
+    line-height: 36px;
+
+    tr {
+      position: relative;
+
+      .label {
+        font-weight: 700;
+        position: relative;
+        color: #5d5d5d;
+        margin-right: 50px;
+        display: flex;
+
+        @media only screen and (max-width: 768px) {
+          margin-right: 24px;
+        }
+      }
+
+      .value {
+        color: #5d5d5d;
+      }
+    }
+  }
+}

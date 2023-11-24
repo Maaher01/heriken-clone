@@ -1,70 +1,93 @@
-.sub-icons {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  gap: 35px;
-  justify-content: space-between;
-  max-width: 1200px;
-  margin: auto;
-  padding: 60px 0 80px;
+.sub-icons-main {
+  padding: 60px 10px 80px;
 
-  @media (max-width: 1182px) {
-    max-width: 960px;
-  }
-
-  @media (max-width: 991px) {
-    max-width: 720px;
-    padding: 60px 35px 80px;
-  }
-
-  @media (max-width: 550px) {
-    max-width: 540px;
-  }
-
-  .icon-container {
+  .sub-icons {
     display: flex;
-    gap: 20px;
-    align-items: center;
+    max-width: 1200px;
+    margin: auto;
+    width: 100%;
 
-    .icon {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 3rem;
-      width: 3rem;
-      border-radius: 50%;
-      background-color: #fff;
-      border: double 3px #70c332;
-
-      .bi {
-        font-size: 18px;
-        color: #70c332;
-        transition: all 0.3s linear;
-      }
-
-      &:hover {
-        background-color: #70c332;
-        box-shadow: 5px 15px 35px #0000001a;
-
-        .bi {
-          color: #fff;
-        }
-      }
+    @media (max-width: 1200px) {
+      max-width: 960px;
     }
 
-    .text-container {
-      line-height: 3pt;
+    @media (max-width: 990px) {
+      max-width: 720px;
+    }
 
-      h3 {
-        color: #39404a;
-        font-weight: 500;
-        font-size: 17px;
+    @media (max-width: 768px) {
+      max-width: 540px;
+    }
+
+    .icon-main {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      width: 100%;
+
+      @media (max-width: 990px) {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 35px 20px;
+      }
+  
+      @media (max-width: 550px) {
+        grid-template-columns: repeat(1, 1fr);
+        gap: 20px 20px;
       }
 
-      p {
-        color: #555;
-        font-weight: 400;
-        font-size: 15px;
+      .icon-container {
+        display: flex;
+        gap: 20px;
+        width: 100%;
+
+        .icon {
+          display: flex;
+
+          span {
+            height: 50px;
+            width: 50px;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            text-align: center;
+            color: #70c332;
+            background: white;
+            border: 3px double #70c332;
+            box-shadow: 0 15px 35px #0000001a;
+            transition: all 0.3s linear;
+
+            &:hover {
+              background-color: #70c332;
+
+              i {
+                color: #fff;
+              }
+            }
+          }
+        }
+
+        .text-container {
+          display: block;
+          width: 100%;
+
+          h3 {
+            color: #39404a;
+            font-weight: 500;
+            font-size: 17px;
+            margin-bottom: 11px;
+            line-height: 22px;
+          }
+
+          p {
+            color: #555;
+            font-weight: 400;
+            font-size: 15px;
+            line-height: 21px;
+            margin-top: 4px;
+          }
+        }
       }
     }
   }

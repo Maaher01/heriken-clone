@@ -1,11 +1,17 @@
-<div class="sub-icons">
-    <div class="icon-container" *ngFor="let item of list">
-      <div class="icon">
-        <i class="bi {{ item.icon }}"></i>
-      </div>
-      <div class="text-container">
-        <h3>{{ item.title }}</h3>
-        <p>{{ item.subTitle }}</p>
+<div class="sub-icons-main">
+  <div class="sub-icons">
+    <div class="icon-main">
+      <div class="icon-container" *ngFor="let item of list">
+        <div class="icon">
+          <span>
+            <i class="bi {{ item.icon }}"></i>
+          </span>
+        </div>
+        <div class="text-container">
+          <h3>{{ item.title }}</h3>
+          <p>{{ item.subTitle }}</p>
+        </div>
       </div>
     </div>
   </div>
+</div>

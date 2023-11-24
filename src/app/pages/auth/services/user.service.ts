@@ -11,14 +11,14 @@ import { User } from 'src/app/models/user';
 export class UserService {
   apiUrl = environment.baseUrl + 'user/';
   refreshTokenInterval: any;
-  private currentUserSubject: BehaviorSubject<User | null>;
-  public currentUser$: Observable<User | null>;
-  user: any;
-  userData: User;
+  private currentUserSubject = new BehaviorSubject<User | null>(null);
+  public currentUser$ = this.currentUserSubject.asObservable();
+  // user: any;
+  // userData: User;
 
   constructor(private http: HttpClient, private router: Router) {
-    this.currentUserSubject = new BehaviorSubject(null);
-    this.currentUser$ = this.currentUserSubject.asObservable();
+    // this.currentUserSubject = new BehaviorSubject(null);
+    // this.currentUser$ = this.currentUserSubject.asObservable();
     this.getUserInfo();
   }
 
@@ -32,9 +32,11 @@ export class UserService {
 
   getUserInfo() {
     this.http.get(this.apiUrl + 'logged-in-user-data').subscribe({
-      next: (result: any) => {
-        this.userData = result.data;
-        this.currentUserSubject.next(this.userData);
+      next: (result) => {
+        // this.userData = result.data;
+        // this.currentUserSubject.next(this.userData);
+        console.log(result);
+        
       },
       error: (err) => {
         console.log(err);
@@ -44,6 +46,10 @@ export class UserService {
 
   isLoggedIn() {
     return localStorage.getItem('token') != null;
+  }
+
+  editUserById(id: any, editPayload: any) {
+    return this.http.put(this.apiUrl + `edit-user-by-id/${id}`, editPayload);
   }
 
   forgotPassword(payload: any) {

@@ -38,6 +38,10 @@ const routes: Routes = [
           import('./checkout/checkout.module').then((m) => m.CheckoutModule),
       },
       {
+        path: 'account',
+        loadChildren: () => import('./account/account.module').then((m) => m.AccountModule)
+      },
+      {
         path: '**',
         component: PageNotFoundComponent,
       },

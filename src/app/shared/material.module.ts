@@ -8,30 +8,27 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
+
+const components = [
+  MatIconModule,
+  MatTooltipModule,
+  MatSidenavModule,
+  MatTableModule,
+  MatInputModule,
+  MatFormFieldModule,
+  MatRadioModule,
+  MatSnackBarModule,
+  MatDialogModule,
+  MatSelectModule,
+  MatButtonModule,
+];
 
 @NgModule({
   declarations: [],
-  imports: [
-    CommonModule,
-    MatIconModule,
-    MatTooltipModule,
-    MatSidenavModule,
-    MatTableModule,
-    MatInputModule,
-    MatFormFieldModule,
-    MatRadioModule,
-    MatSnackBarModule,
-  ],
-  exports: [
-    CommonModule,
-    MatIconModule,
-    MatTooltipModule,
-    MatSidenavModule,
-    MatTableModule,
-    MatInputModule,
-    MatFormFieldModule,
-    MatRadioModule,
-    MatSnackBarModule,
-  ],
+  imports: [CommonModule, components],
+  exports: [components],
 })
 export class MaterialModule {}

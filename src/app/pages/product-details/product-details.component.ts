@@ -4,7 +4,8 @@ import { MoreDetailsComponent } from './more-details/more-details.component';
 import { CustomerReviewsComponent } from './customer-reviews/customer-reviews.component';
 import { ProductService } from 'src/app/shared/services/product.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Product } from 'src/app/models/product';
+import { UserService } from '../auth/services/user.service';
+import { CartService } from 'src/app/shared/services/cart.service';
 
 @Component({
   selector: 'app-product-details',
@@ -14,19 +15,22 @@ import { Product } from 'src/app/models/product';
 export class ProductDetailsComponent implements OnInit {
   detailsAndRatingSection = MoreDetailsComponent;
   product: any;
-  products: any;
   productData: any;
-  cartProducts: Array<Product> = [];
-  cartData: any;
-  currentProducts: any;
+  public currentUser: any;
 
   constructor(
     private route: ActivatedRoute,
     private productService: ProductService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private userService: UserService,
+    private cartService: CartService
   ) {}
 
   ngOnInit(): void {
+    this.userService.currentUser$.subscribe(
+      (user) => (this.currentUser = user)
+    );
+
     this.route.params.subscribe((param) => {
       this.getProductById(param['productId']);
     });
@@ -37,6 +41,22 @@ export class ProductDetailsComponent implements OnInit {
       next: (product) => {
         this.productData = product;
         this.product = this.productData.data;
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
+  }
+
+  addToCart(productId: any) {
+    const userId = this.currentUser._id;
+
+    this.cartService.addToCart(userId, productId).subscribe({
+      next: () => {
+        this.snackBar.open("Added to cart successfully", '', {
+          duration: 1500,
+          panelClass: ['snackbar'],
+        });
       },
       error: (err) => {
         console.log(err);

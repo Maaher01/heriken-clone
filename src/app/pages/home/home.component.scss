@@ -12,30 +12,30 @@
 
   .card-div-main {
     width: 100%;
+    padding: 0 10px;
 
     .card-sub-div {
       max-width: 1200px;
-      padding: 0 10px;
       margin: auto;
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       grid-template-rows: auto;
       gap: 27px;
 
-      @media (max-width: 1182px) {
-        grid-template-columns: repeat(3, 1fr);
+      @media (max-width: 1200px) {
         max-width: 960px;
         gap: 20px 15px;
       }
 
-      @media (max-width: 991px) {
+      @media (max-width: 990px) {
         gap: 25px;
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(3, 1fr);
         max-width: 720px;
       }
 
-      @media (max-width: 550px) {
+      @media (max-width: 768px) {
         gap: 10px;
+        grid-template-columns: repeat(2, 1fr);
         max-width: 540px;
       }
     }

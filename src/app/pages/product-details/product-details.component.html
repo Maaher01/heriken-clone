@@ -6,11 +6,8 @@
           <img [src]="product?.images[0]" />
         </div>
       </div>
-      <div class="other-img">
-        <img [src]="product?.images[0]">
-        <img [src]="product?.images[1]">
-        <img [src]="product?.images[2]">
-        <img [src]="product?.images[3]">
+      <div class="other-img" *ngFor="let image of product?.images"> 
+        <img [src]="image">
       </div>
     </div>
     <div class="main-info">
@@ -21,17 +18,17 @@
       </div>
       <div class="price">
         <div>
-          <p class="previous">৳{{ product.price + product?.discountAmount | number }}</p>
-          <p class="current">৳{{ product.price | number }}</p>
+          <p class="previous">৳{{ product?.price + product?.discountAmount | number }}</p>
+          <p class="current">৳{{ product?.price | number }}</p>
         </div>
         <div class="discount">Discount: ৳{{ product?.discountAmount | number }}</div>
       </div>
       <div class="action-buttons">
         <div class="add-buy">
-          <button class="add">
+          <button class="add-btn" (click)="addToCart(product?._id)">
             <mat-icon>shopping_basket</mat-icon>ADD TO CART
           </button>
-          <!-- <button>Buy Now</button> -->
+          <button class="buy-btn">Buy Now</button>
         </div>
         <!-- <div class="wishlist">
           <button><mat-icon>favorite</mat-icon>ADD TO WISHLIST</button>
