@@ -1,47 +1,54 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { BehaviorSubject, Observable, switchMap, tap } from 'rxjs';
 import { User } from 'src/app/models/user';
+
+const BASE_API_URL = `${environment.baseUrl}user/`;
+
+interface UserLoginRequestBody {
+  email: string;
+  password: string;
+}
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  apiUrl = environment.baseUrl + 'user/';
-  refreshTokenInterval: any;
-  private currentUserSubject = new BehaviorSubject<User | null>(null);
-  public currentUser$ = this.currentUserSubject.asObservable();
-  // user: any;
-  // userData: User;
+  private _httpClient = inject(HttpClient);
+  private _router = inject(Router);
 
-  constructor(private http: HttpClient, private router: Router) {
-    // this.currentUserSubject = new BehaviorSubject(null);
-    // this.currentUser$ = this.currentUserSubject.asObservable();
-    this.getUserInfo();
-  }
+  refreshTokenInterval: any;
+  private currentUserSubject: BehaviorSubject<User | null> =
+    new BehaviorSubject<User | null>(null);
+  currentUser$ = this.currentUserSubject.asObservable();
 
   register(data: any) {
-    return this.http.post(this.apiUrl + 'registration', data);
+    return this._httpClient.post(BASE_API_URL + 'registration', data);
   }
 
-  login(data: any) {
-    return this.http.put(this.apiUrl + 'login', data);
+  login(payload: UserLoginRequestBody): Observable<User> {
+    return this._httpClient
+      .put<{ token: string }>(BASE_API_URL + 'login', payload)
+      .pipe(
+        tap((loginResponse) => {
+          console.log(loginResponse);
+          localStorage.setItem('token', loginResponse.token);
+        }),
+        switchMap((_loginResponse) =>
+          this.getUserInfo().pipe(
+            tap((userInfo) => {
+              this.currentUserSubject.next(userInfo);
+              console.log({ userInfo });
+            }),
+          ),
+        ),
+      );
   }
 
-  getUserInfo() {
-    this.http.get(this.apiUrl + 'logged-in-user-data').subscribe({
-      next: (result) => {
-        // this.userData = result.data;
-        // this.currentUserSubject.next(this.userData);
-        console.log(result);
-        
-      },
-      error: (err) => {
-        console.log(err);
-      },
-    });
+  getUserInfo(): Observable<User> {
+    return this._httpClient.get<User>(BASE_API_URL + 'logged-in-user-data');
   }
 
   isLoggedIn() {
@@ -49,16 +56,21 @@ export class UserService {
   }
 
   editUserById(id: any, editPayload: any) {
-    return this.http.put(this.apiUrl + `edit-user-by-id/${id}`, editPayload);
+    return this._httpClient.put(
+      BASE_API_URL + `edit-user-by-id/${id}`,
+      editPayload,
+    );
   }
 
   forgotPassword(payload: any) {
-    return this.http.patch(this.apiUrl + 'forgot-password', payload).pipe(
-      tap((res: any) => {
-        localStorage.removeItem('token');
-        this.router.navigateByUrl('/pages/auth/login');
-      })
-    );
+    return this._httpClient
+      .patch(BASE_API_URL + 'forgot-password', payload)
+      .pipe(
+        tap((res: any) => {
+          localStorage.removeItem('token');
+          this._router.navigateByUrl('/pages/auth/login');
+        }),
+      );
   }
 
   logout() {
@@ -66,7 +78,7 @@ export class UserService {
     setTimeout(() => {
       clearInterval(this.refreshTokenInterval);
       this.refreshTokenInterval = null;
-      this.router.navigate(['/pages/auth/login']);
+      this._router.navigate(['/pages/auth/login']);
     }, 1000);
   }
 }

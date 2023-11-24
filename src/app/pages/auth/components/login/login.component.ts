@@ -1,6 +1,8 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormControl, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { catchError, throwError } from 'rxjs';
 import { UserService } from '../../services/user.service';
 
 @Component({
@@ -9,7 +11,6 @@ import { UserService } from '../../services/user.service';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
-  responseData: any;
   errorResponse!: string;
 
   userLoginForm = this.fb.group({
@@ -20,23 +21,29 @@ export class LoginComponent {
   constructor(
     private fb: FormBuilder,
     private userService: UserService,
-    private router: Router
-  ) {}
+    private router: Router,
+  ) { }
 
   loginUser() {
-    if (this.userLoginForm.valid) {
-      this.userService.login(this.userLoginForm.value).subscribe({
+    if (!this.userLoginForm.valid) {
+      return;
+    }
+    this.userService
+      .login(this.userLoginForm.getRawValue())
+      .pipe(
+        catchError((error: HttpErrorResponse | unknown) => {
+          if (error instanceof HttpErrorResponse) {
+            this.errorResponse = error.message;
+          }
+          return throwError(() => error);
+        }),
+      )
+      .subscribe({
         next: (result) => {
           if (result != null) {
-            this.responseData = result;
-            localStorage.setItem('token', this.responseData.token);
             this.router.navigate(['/']);
           }
         },
-        error: (err) => {
-          this.errorResponse = err.error.message;
-        },
       });
-    }
   }
 }
