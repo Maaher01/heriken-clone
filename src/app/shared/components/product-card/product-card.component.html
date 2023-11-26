@@ -1,31 +1,33 @@
-<div class="card" [routerLink]="['/pages/details', product?._id]">
-  <div class="product-image">
-    <img [src]="product?.images[0]" alt="product-image" />
-    <div class="tag">
-      <span>New</span>
+<div class="card">
+  <div [routerLink]="['/pages/details', product?._id]">
+    <div class="product-image">
+      <img [src]="product?.images[0]" alt="product-image" />
+      <div class="tag">
+        <span>New</span>
+      </div>
+      <span class="wish">
+        <i class="fa fa-heart"></i>
+      </span>
     </div>
-    <span class="wish">
-      <i class="fa fa-heart"></i>
-    </span>
-  </div>
-  <div class="product-body">
-    <div class="rating-area">
-      <ul>
-        <li><span><i class="fa-solid fa-star"></i></span></li>
-        <li><span><i class="fa-solid fa-star"></i></span></li>
-        <li><span><i class="fa-solid fa-star"></i></span></li>
-        <li><span><i class="fa-solid fa-star"></i></span></li>
-        <li><span><i class="fa-regular fa-star"></i></span></li>
-        <li><span>(0)</span></li>
-      </ul>
-    </div>
-    <a class="product-title">{{ product?.productName | truncate : 50 }}</a>
-    <div class="product-price">
-      <span class="old-price">৳{{ product?.price + product?.discountAmount | number }}</span>
-      <span class="new-price">৳{{ product?.price | number }}</span>
-    </div>
-    <div class="discount">
-      <h3>Discount:<span>৳{{ product?.discountAmount | number }}</span></h3>
+    <div class="product-body">
+      <div class="rating-area">
+        <ul>
+          <li><span><i class="fa-solid fa-star"></i></span></li>
+          <li><span><i class="fa-solid fa-star"></i></span></li>
+          <li><span><i class="fa-solid fa-star"></i></span></li>
+          <li><span><i class="fa-solid fa-star"></i></span></li>
+          <li><span><i class="fa-regular fa-star"></i></span></li>
+          <li><span>(0)</span></li>
+        </ul>
+      </div>
+      <a class="product-title">{{ product?.productName | truncate : 50 }}</a>
+      <div class="product-price">
+        <span class="old-price">৳{{ product?.price + product?.discountAmount | number }}</span>
+        <span class="new-price">৳{{ product?.price | number }}</span>
+      </div>
+      <div class="discount">
+        <h3>Discount:<span>৳{{ product?.discountAmount | number }}</span></h3>
+      </div>
     </div>
   </div>
   <button class="add-button" (click)="addToCart(product?._id)">

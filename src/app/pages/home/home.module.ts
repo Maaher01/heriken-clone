@@ -6,10 +6,9 @@ import { HomeComponent } from './home.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { MaterialModule } from 'src/app/shared/material.module';
 import { SubIconsComponent } from './sub-icons/sub-icons.component';
-import { TopBannerComponent } from './top-banner/top-banner.component';
 
 @NgModule({
-  declarations: [HomeComponent, SubIconsComponent, TopBannerComponent],
+  declarations: [HomeComponent, SubIconsComponent],
   imports: [CommonModule, HomeRoutingModule, MaterialModule, SharedModule],
 })
 export class HomeModule {}

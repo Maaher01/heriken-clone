@@ -21,14 +21,14 @@ export class UserService {
 
   refreshTokenInterval: any;
   private currentUserSubject: BehaviorSubject<User | null> =
-    new BehaviorSubject<User | null>(null);
+    new BehaviorSubject<User | null>(JSON.parse(localStorage.getItem('user')));
   currentUser$ = this.currentUserSubject.asObservable();
 
   register(data: any) {
     return this._httpClient.post(BASE_API_URL + 'registration', data);
   }
 
-  login(payload: UserLoginRequestBody): Observable<User> {
+  login(payload: UserLoginRequestBody): Observable<{ data: User }> {
     return this._httpClient
       .put<{ token: string }>(BASE_API_URL + 'login', payload)
       .pipe(
@@ -39,16 +39,19 @@ export class UserService {
         switchMap((_loginResponse) =>
           this.getUserInfo().pipe(
             tap((userInfo) => {
-              this.currentUserSubject.next(userInfo);
+              this.currentUserSubject.next(userInfo.data);
+              localStorage.setItem('user', JSON.stringify(userInfo.data));
               console.log({ userInfo });
-            }),
-          ),
-        ),
+            })
+          )
+        )
       );
   }
 
-  getUserInfo(): Observable<User> {
-    return this._httpClient.get<User>(BASE_API_URL + 'logged-in-user-data');
+  getUserInfo(): Observable<{ data: User }> {
+    return this._httpClient.get<{ data: User }>(
+      BASE_API_URL + 'logged-in-user-data'
+    );
   }
 
   isLoggedIn() {
@@ -58,7 +61,7 @@ export class UserService {
   editUserById(id: any, editPayload: any) {
     return this._httpClient.put(
       BASE_API_URL + `edit-user-by-id/${id}`,
-      editPayload,
+      editPayload
     );
   }
 
@@ -69,7 +72,7 @@ export class UserService {
         tap((res: any) => {
           localStorage.removeItem('token');
           this._router.navigateByUrl('/pages/auth/login');
-        }),
+        })
       );
   }
 

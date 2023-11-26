@@ -6,6 +6,7 @@ export interface Cart {
   cartProducts: CartProducts[];
   createdAt: string;
   updatedAt: string;
+  __v: Number
 }
 
 export interface CartProducts {

@@ -30,7 +30,7 @@ export class ProductCardComponent implements OnInit {
 
     this.cartService.addToCart(userId, productId).subscribe({
       next: () => {
-        this.snackBar.open("Added to cart successfully", '', {
+        this.snackBar.open('Added to cart successfully', '', {
           duration: 1500,
           panelClass: ['snackbar'],
         });

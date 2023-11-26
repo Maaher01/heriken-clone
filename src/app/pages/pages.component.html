@@ -1,6 +1,6 @@
 <mat-drawer-container class="container" [hasBackdrop]="true">
   <mat-drawer class="cart-drawer" position="end" #drawer>
-    <div class="card-top">
+    <div class="cart-top">
       <div class="close-drawer">
         <mat-icon (click)="drawer.toggle()">close</mat-icon>
       </div>
@@ -9,35 +9,41 @@
         <!-- <p>Total Items ({{cartProdQuantity | number : '2.0-0'}})</p> -->
       </div>
     </div>
-    <div class="card-main">
-      <!-- <div class="cart-items" *ngFor="let product of cartProducts"> -->
-        <!-- <img [src]="product.images" /> -->
-        <div class="prod-text">
-          <!-- <h4>{{ product.productName | truncate : 25 }}</h4> -->
-          <!-- <span>Unit Price: ৳{{ product.price | number }}</span> -->
-          <div class="quantity-total">
-            <div class="quantity">
-              <!-- <button [disabled]="product.quantity <= 1"> -->
-                <i class="fa fa-minus" aria-hidden="true"></i>
-              <!-- </button> -->
-              <!-- <input type="text" [(ngModel)]="quantity" readonly value="{{ product.quantity }}" /> -->
-              <button>
-                <i class="fa fa-plus" aria-hidden="true"></i>
-              </button>
+    <div class="cart-contents">
+      <ng-container *ngIf="cartData$ | async as cartData">
+        <div class="cart-item" *ngFor="let product of cartData">
+          <div class="card-img">
+            <img src="{{product.product.images}}" />
+          </div>
+          <div class="card-text">
+            <h4>{{product.product.productName | truncate: 25 }}</h4>
+            <span>Unit Price: {{product.product.price}}</span>
+            <div class="quantity-price">
+              <div class="quantity">
+                <button>
+                  <i class="fa fa-minus" aria-hidden="true"></i>
+                </button>
+                <input type="text" readonly value="{{product.productQuantity}}">
+                <button (click)="addToCart(product.product?._id)">
+                  <i class="fa fa-plus" aria-hidden="true"></i>
+                </button>
+              </div>
+              <div class="price">
+                <p>৳{{product.product.price * product.productQuantity | number}}</p>
+              </div>
             </div>
-            <!-- <p>৳{{product.price * product.quantity | number}}</p> -->
           </div>
         </div>
-      </div>
-    <!-- </div> -->
-    <div class="card-bottom">
+      </ng-container>
+    </div>
+    <div class="cart-bottom">
       <a [routerLink]="['/pages/checkout']" (click)="drawer.toggle()">
         <p>Proceed to Checkout</p>
         <!-- <span>৳{{subTotal | number}}</span> -->
       </a>
     </div>
   </mat-drawer>
-  
+
   <mat-drawer-content class="drawer-content">
     <div class="header-area">
       <app-header></app-header>

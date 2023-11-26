@@ -1,43 +1,46 @@
-<div class="container">
-  <div class="main-carousel">
-    <div class="images">
-      <div class="prod-img">
-        <div class="img-container">
-          <img [src]="product?.images[0]" />
+<div class="main-container">
+  <div class="container">
+    <div class="main-carousel">
+      <div class="images">
+        <div class="prod-img">
+          <div class="img-container">
+            <img [src]="product?.images[0]" />
+          </div>
+        </div>
+        <div class="other-img">
+          <div class="sm-container" *ngFor="let image of product?.images">
+            <img [src]="image">
+          </div>
         </div>
       </div>
-      <div class="other-img" *ngFor="let image of product?.images"> 
-        <img [src]="image">
-      </div>
-    </div>
-    <div class="main-info">
-      <p class="title">{{ product?.productName }}</p>
-      <div class="brand-code">
-        <p>Product Code: {{ product?.sku }}</p>
-        <p>BRAND: {{ product?.brand }}</p>
-      </div>
-      <div class="price">
-        <div>
-          <p class="previous">৳{{ product?.price + product?.discountAmount | number }}</p>
-          <p class="current">৳{{ product?.price | number }}</p>
+      <div class="main-info">
+        <p class="title">{{ product?.productName }}</p>
+        <div class="brand-code">
+          <p>Product Code: {{ product?.sku }}</p>
+          <p>BRAND: {{ product?.brand }}</p>
         </div>
-        <div class="discount">Discount: ৳{{ product?.discountAmount | number }}</div>
-      </div>
-      <div class="action-buttons">
-        <div class="add-buy">
-          <button class="add-btn" (click)="addToCart(product?._id)">
-            <mat-icon>shopping_basket</mat-icon>ADD TO CART
-          </button>
-          <button class="buy-btn">Buy Now</button>
+        <div class="price">
+          <div>
+            <p class="previous">৳{{ product?.price + product?.discountAmount | number }}</p>
+            <p class="current">৳{{ product?.price | number }}</p>
+          </div>
+          <div class="discount">Discount: ৳{{ product?.discountAmount | number }}</div>
         </div>
-        <!-- <div class="wishlist">
+        <div class="action-buttons">
+          <div class="add-buy">
+            <button class="add-btn" (click)="addToCart(product?._id)">
+              <mat-icon>shopping_basket</mat-icon>ADD TO CART
+            </button>
+            <button class="buy-btn">Buy Now</button>
+          </div>
+          <!-- <div class="wishlist">
           <button><mat-icon>favorite</mat-icon>ADD TO WISHLIST</button>
         </div> -->
+        </div>
       </div>
     </div>
-  </div>
 
-  <!-- <div class="toggler">
+    <!-- <div class="toggler">
     <a (click)="assignDetailsOrReviews('more-details')">MORE DETAILS</a>
     <div class="line"></div>
     <a (click)="assignDetailsOrReviews('customer-reviews')">CUSTOMER REVIEWS (0)</a>
@@ -45,11 +48,12 @@
 
   <ng-container *ngComponentOutlet="detailsAndRatingSection"></ng-container> -->
 
-  <!-- <div class="related">
+    <!-- <div class="related">
     <p class="heading">Related items</p>
     <app-product-card></app-product-card>
     <div class="more-button">
       <button><mat-icon>remove_red_eye</mat-icon>VIEW ALL RELATED ITEMS</button>
     </div>
   </div> -->
+  </div>
 </div>

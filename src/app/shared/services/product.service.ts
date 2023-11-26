@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { Product } from 'src/app/models/product';
 
 @Injectable({
   providedIn: 'root',
@@ -10,9 +12,8 @@ export class ProductService {
 
   constructor(private http: HttpClient) {}
 
-  getAllProducts() {
-    let params = new HttpParams();
-    return this.http.post(this.apiUrl + 'get-all-products', { params });
+  getAllProducts(): Observable<{ data: Product[] }> {
+    return this.http.get<{ data: Product[] }>(this.apiUrl + 'get-all-products');
   }
 
   getProductById(id: any) {
