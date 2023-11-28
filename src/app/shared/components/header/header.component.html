@@ -14,10 +14,10 @@
             <i class="fa-solid fa-user"></i>
           </div>
           <div class="drop-arrow">
-            <mat-icon (click)="toggleAccountDropdown()">arrow_drop_down</mat-icon>
+            <mat-icon (click)="toggleAccountDropdown()" (outsideClick)="toggleAccountDropdown()">arrow_drop_down</mat-icon>
             <div class="account-dropdown" *ngIf="showAccountMenu">
-              <a (click)="toggleAccountDropdown()" [routerLink]="['/pages/account']">Profile</a>
-              <a (click)="logout();toggleAccountDropdown()">Logout</a>
+              <a [routerLink]="['/pages/account']">Profile</a>
+              <a (click)="logout()">Logout</a>
             </div>
           </div>
         </div>

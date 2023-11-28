@@ -1,19 +1,21 @@
 <mat-drawer-container class="container" [hasBackdrop]="true">
   <mat-drawer class="cart-drawer" position="end" #drawer>
-    <div class="cart-top">
-      <div class="close-drawer">
-        <mat-icon (click)="drawer.toggle()">close</mat-icon>
+    <ng-container *ngIf="cartData$ | async as cartData; else emptyDrawerTemplate">
+
+      <div class="cart-top">
+        <div class="close-drawer">
+          <mat-icon (click)="drawer.toggle()">close</mat-icon>
+        </div>
+        <div class="item-sec">
+          <mat-icon>shopping_basket</mat-icon>
+          <p>Total Items ({{cartData.totalQuantity | number : '2.0-0'}})</p>
+        </div>
       </div>
-      <div class="item-sec">
-        <mat-icon>shopping_basket</mat-icon>
-        <!-- <p>Total Items ({{cartProdQuantity | number : '2.0-0'}})</p> -->
-      </div>
-    </div>
-    <div class="cart-contents">
-      <ng-container *ngIf="cartData$ | async as cartData">
-        <div class="cart-item" *ngFor="let product of cartData">
+
+      <div class="cart-content">
+        <div class="cart-item" *ngFor="let product of cartData.cartProducts">
           <div class="card-img">
-            <img src="{{product.product.images}}" />
+            <img [src]="product.product.images" />
           </div>
           <div class="card-text">
             <h4>{{product.product.productName | truncate: 25 }}</h4>
@@ -34,14 +36,35 @@
             </div>
           </div>
         </div>
-      </ng-container>
-    </div>
-    <div class="cart-bottom">
-      <a [routerLink]="['/pages/checkout']" (click)="drawer.toggle()">
-        <p>Proceed to Checkout</p>
-        <!-- <span>৳{{subTotal | number}}</span> -->
-      </a>
-    </div>
+      </div>
+      <div class="cart-bottom">
+        <a [routerLink]="['/pages/checkout']" (click)="drawer.toggle()">
+          <p>Proceed to Checkout</p>
+          <!-- <span>৳{{subTotal | number}}</span> -->
+        </a>
+      </div>
+    </ng-container>
+
+    <ng-template #emptyDrawerTemplate>
+      <div class="cart-top">
+        <div class="close-drawer">
+          <mat-icon (click)="drawer.toggle()">close</mat-icon>
+        </div>
+        <div class="item-sec">
+          <mat-icon>shopping_basket</mat-icon>
+          <p>Total Items (00)</p>
+        </div>
+      </div>
+
+      <div class="cart-content"></div>
+
+      <div class="cart-bottom">
+        <a [routerLink]="['/pages/checkout']" (click)="drawer.toggle()">
+          <p>Proceed to Checkout</p>
+          <!-- <span>৳{{subTotal | number}}</span> -->
+        </a>
+      </div>
+    </ng-template>
   </mat-drawer>
 
   <mat-drawer-content class="drawer-content">

@@ -19,9 +19,9 @@ export class HeaderComponent implements OnInit {
     this.showSearchBox = !this.showSearchBox;
   }
 
-  toggleCategoryDropdown() {
-    this.showCategoryMenu = !this.showCategoryMenu;
-  }
+  // toggleCategoryDropdown() {
+  //   this.showCategoryMenu = !this.showCategoryMenu;
+  // }
 
   toggleAccountDropdown() {
     this.showAccountMenu = !this.showAccountMenu;

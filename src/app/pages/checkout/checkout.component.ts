@@ -1,27 +1,26 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl, FormBuilder, Validators } from '@angular/forms';
+import { UserService } from '../auth/services/user.service';
+import { CartService } from 'src/app/shared/services/cart.service';
+import { map, mergeMap } from 'rxjs';
 
 @Component({
   selector: 'app-checkout',
   templateUrl: './checkout.component.html',
   styleUrls: ['./checkout.component.scss'],
 })
-export class CheckoutComponent implements OnInit {
-  cartProducts: any;
-  product: any;
-  quantity: number = 1;
-
-  constructor(private fb: FormBuilder) {}
-
-  ngOnInit(): void {
-    this.getCartProducts();
-  }
+export class CheckoutComponent {
+  constructor(
+    private fb: FormBuilder,
+    private userService: UserService,
+    private cartService: CartService
+  ) {}
 
   displayedColumns: string[] = [
     'Serial',
     'Product',
     'Price',
-    'Discount',
+    // 'Discount',
     'Quantity',
     'Total',
     'Action',
@@ -39,26 +38,20 @@ export class CheckoutComponent implements OnInit {
     payMethod: new FormControl('', [Validators.required]),
   });
 
-  getCartProducts() {
-    this.cartProducts = JSON.parse(localStorage.getItem('cartProducts'));
-  }
+  cartData$ = this.userService.currentUser$.pipe(
+    mergeMap((user) => {
+      return this.cartService.getUserCart(user._id).pipe(
+        map((res) => {
+          if (res.data[0]) {
+            console.log(res.data[0]);
+            return res.data[0];
+          }
+        })
+      );
+    })
+  );
 
-  deleteItemFromCart(productId) {
-    let products = JSON.parse(localStorage.getItem('cartProducts'));
-    products = products.filter((product) => product._id !== productId);
-    localStorage.setItem('cartProducts', JSON.stringify(products));
-    this.getCartProducts();
-  }
-
-  increaseQuantity(productId) {
-    this.product = this.cartProducts.find((m) => m?._id == productId);
-    this.product.quantity = this.product.quantity + 1;
-    return this.product.quantity;
-  }
-
-  decreaseQuantity(productId) {
-    this.product = this.cartProducts.find((m) => m?._id == productId);
-    this.product.quantity = this.product.quantity - 1;
-    return this.product.quantity;
+  confirmOrder() {
+    
   }
 }
