@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { FormControl, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { catchError, throwError } from 'rxjs';
-import { UserService } from '../../services/user.service';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -20,15 +20,15 @@ export class LoginComponent {
 
   constructor(
     private fb: FormBuilder,
-    private userService: UserService,
-    private router: Router,
-  ) { }
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
   loginUser() {
     if (!this.userLoginForm.valid) {
       return;
     }
-    this.userService
+    this.authService
       .login(this.userLoginForm.getRawValue())
       .pipe(
         catchError((error: HttpErrorResponse | unknown) => {
@@ -36,7 +36,7 @@ export class LoginComponent {
             this.errorResponse = error.message;
           }
           return throwError(() => error);
-        }),
+        })
       )
       .subscribe({
         next: (result) => {

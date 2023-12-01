@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Product } from 'src/app/models/product';
-import { CartService } from '../../services/cart.service';
-import { UserService } from 'src/app/pages/auth/services/user.service';
+import { CartService } from '../../../services/cart.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-product-card',
@@ -15,12 +15,12 @@ export class ProductCardComponent implements OnInit {
 
   constructor(
     private snackBar: MatSnackBar,
-    private userService: UserService,
+    private authService: AuthService,
     private cartService: CartService
   ) {}
 
   ngOnInit(): void {
-    this.userService.currentUser$.subscribe(
+    this.authService.currentUser$.subscribe(
       (user) => (this.currentUser = user)
     );
   }

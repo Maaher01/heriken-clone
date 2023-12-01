@@ -20,9 +20,9 @@ const routes: Routes = [
           ),
       },
       {
-        path: 'auth',
+        path: 'user',
         loadChildren: () =>
-          import('./auth/auth.module').then((m) => m.AuthModule),
+          import('./user/user.module').then((m) => m.UserModule),
       },
       {
         path: 'allproducts',
@@ -38,7 +38,15 @@ const routes: Routes = [
       },
       {
         path: 'account',
-        loadChildren: () => import('./account/account.module').then((m) => m.AccountModule)
+        loadChildren: () =>
+          import('./account/account.module').then((m) => m.AccountModule),
+      },
+      {
+        path: 'order-confirmation',
+        loadChildren: () =>
+          import('./order-confirmation/order-confirmation.module').then(
+            (m) => m.OrderConfirmationModule
+          ),
       },
     ],
   },

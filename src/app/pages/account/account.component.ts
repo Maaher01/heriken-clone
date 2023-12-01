@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../auth/services/user.service';
+import { AuthService } from '../../services/auth.service';
 import { BasicInfoComponent } from './basic-info/basic-info.component';
 
 @Component({
@@ -8,14 +8,11 @@ import { BasicInfoComponent } from './basic-info/basic-info.component';
   styleUrls: ['./account.component.scss'],
 })
 export class AccountComponent implements OnInit {
-  
   accountSection = BasicInfoComponent;
 
   constructor() {}
 
-  ngOnInit(): void {
-    
-  }
+  ngOnInit(): void {}
 
   assignAccountComponent(component) {
     if (component === 'more-details') {

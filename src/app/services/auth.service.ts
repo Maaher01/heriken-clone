@@ -15,7 +15,7 @@ interface UserLoginRequestBody {
 @Injectable({
   providedIn: 'root',
 })
-export class UserService {
+export class AuthService {
   private _httpClient = inject(HttpClient);
   private _router = inject(Router);
 
@@ -71,7 +71,7 @@ export class UserService {
       .pipe(
         tap((res: any) => {
           localStorage.removeItem('token');
-          this._router.navigateByUrl('/pages/auth/login');
+          this._router.navigateByUrl('/pages/user/login');
         })
       );
   }
@@ -81,7 +81,7 @@ export class UserService {
     setTimeout(() => {
       clearInterval(this.refreshTokenInterval);
       this.refreshTokenInterval = null;
-      this._router.navigate(['/pages/auth/login']);
+      this._router.navigate(['/pages/user/login']);
     }, 1000);
   }
 }

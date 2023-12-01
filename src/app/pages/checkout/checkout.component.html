@@ -23,7 +23,7 @@
             <th mat-header-cell *matHeaderCellDef class="product-header">
               Product
             </th>
-            <td mat-cell *matCellDef="let product" class="product-data">
+            <td mat-cell *matCellDef="let product" class="product-data" [routerLink]="['/pages/details', product.product?._id]">
               <img class="product-img" [src]="product.product.images[0]" />
               <div class="product-name">
                 {{ product.product.productName | truncate : 50 }}
@@ -34,12 +34,6 @@
             <th mat-header-cell *matHeaderCellDef class="price-header">Price</th>
             <td mat-cell *matCellDef="let product">{{ product.product.price | number }}</td>
           </ng-container>
-          <!-- <ng-container matColumnDef="Discount">
-          <th mat-header-cell *matHeaderCellDef class="discount-header">
-            Discount
-          </th>
-          <td mat-cell *matCellDef="let product">{{ product.product.discountAmount | number }}</td>
-        </ng-container> -->
           <ng-container matColumnDef="Quantity">
             <th mat-header-cell *matHeaderCellDef class="quantity-header">
               Quantity
@@ -76,7 +70,7 @@
       <div class="note-area">
         <mat-form-field appearance="outline">
           <mat-label>Special Notes...</mat-label>
-          <textarea matInput rows="5" cols="10"></textarea>
+          <textarea matInput rows="5"></textarea>
         </mat-form-field>
       </div>
     </div>
@@ -105,12 +99,6 @@
           <th mat-header-cell *matHeaderCellDef class="price-header">Price</th>
           <td mat-cell *matCellDef="let product">{{ product.product.price | number }}</td>
         </ng-container>
-        <!-- <ng-container matColumnDef="Discount">
-        <th mat-header-cell *matHeaderCellDef class="discount-header">
-          Discount
-        </th>
-        <td mat-cell *matCellDef="let product">{{ product.product.discountAmount | number }}</td>
-      </ng-container> -->
         <ng-container matColumnDef="Quantity">
           <th mat-header-cell *matHeaderCellDef class="quantity-header">
             Quantity
@@ -162,15 +150,15 @@
         <div class="form-input">
           <h3>মোবাইল নম্বর:</h3>
           <mat-form-field appearance="outline">
-            <input matInput formControlName="mobile" numbersOnly />
+            <input matInput formControlName="phoneNo" numbersOnly />
             <div *ngIf="
-                checkoutForm.controls['mobile']?.dirty ||
-                (checkoutForm.controls['mobile']?.touched &&
-                  checkoutForm.controls['mobile'].invalid)
+                checkoutForm.controls['phoneNo']?.dirty ||
+                (checkoutForm.controls['phoneNo']?.touched &&
+                  checkoutForm.controls['phoneNo'].invalid)
               ">
-              <mat-error *ngIf="checkoutForm.controls['mobile']?.hasError('minlength')">দয়া করে একটি বৈধ 11 সংখ্যার ফোন
+              <mat-error *ngIf="checkoutForm.controls['phoneNo']?.hasError('minlength')">দয়া করে একটি বৈধ 11 সংখ্যার ফোন
                 নম্বর লিখুন৷</mat-error>
-              <mat-error *ngIf="checkoutForm.controls['mobile']?.hasError('maxlength')">দয়া করে একটি বৈধ 11 সংখ্যার ফোন
+              <mat-error *ngIf="checkoutForm.controls['phoneNo']?.hasError('maxlength')">দয়া করে একটি বৈধ 11 সংখ্যার ফোন
                 নম্বর লিখুন৷</mat-error>
             </div>
           </mat-form-field>
@@ -179,15 +167,15 @@
           <h3>ঠিকানা:</h3>
           <mat-form-field appearance="outline">
             <mat-label>Enter your address here...</mat-label>
-            <textarea matInput formControlName="address"></textarea>
+            <textarea matInput formControlName="shippingAddress"></textarea>
           </mat-form-field>
         </div>
         <div class="form-input">
           <h3>ডেলিভারি:</h3>
           <div class="radio-area">
-            <mat-radio-group formControlName="deliveryLocation">
-              <mat-radio-button value="1">ঢাকার ভিতরে (৬০ টাকা)</mat-radio-button>
-              <mat-radio-button value="2">ঢাকার বাহিরে (১২০ টাকা)</mat-radio-button>
+            <mat-radio-group formControlName="deliveryCharge">
+              <mat-radio-button value="60">ঢাকার ভিতরে (৬০ টাকা)</mat-radio-button>
+              <mat-radio-button value="120">ঢাকার বাহিরে (১২০ টাকা)</mat-radio-button>
             </mat-radio-group>
           </div>
         </div>
@@ -202,10 +190,10 @@
             <div>সম্পুর্ণ নিরাপদ পেমেন্ট</div>
           </div>
         </div>
-        <mat-radio-group formControlName="payMethod">
+        <mat-radio-group formControlName="paymentMethod">
           <div class="pay-area">
             <div class="pay-box">
-              <mat-radio-button value="1">ক্যাশ অন ডেলিভারি</mat-radio-button>
+              <mat-radio-button value="CashOnDelivery">ক্যাশ অন ডেলিভারি</mat-radio-button>
             </div>
             <div class="warn">
               <mat-icon>check_circle</mat-icon>
@@ -214,7 +202,7 @@
           </div>
           <div class="pay-area">
             <div class="pay-box">
-              <mat-radio-button value="2">বিকাশ</mat-radio-button>
+              <mat-radio-button value="Bkash">বিকাশ</mat-radio-button>
               <img src="assets/icons/bkash_payment_logo.png" width="100px" />
             </div>
             <div class="warn">
@@ -224,7 +212,7 @@
           </div>
           <div class="pay-area">
             <div class="pay-box">
-              <mat-radio-button value="3">অন্যান্য পেমেন্ট মাধ্যম</mat-radio-button>
+              <mat-radio-button value="Others">অন্যান্য পেমেন্ট মাধ্যম</mat-radio-button>
               <img src="assets/icons/other-payment-mothod-logo.jpeg" width="150px" />
             </div>
           </div>

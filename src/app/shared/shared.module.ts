@@ -7,7 +7,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { ProductCardComponent } from './components/product-card/product-card.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { ScrollButtonComponent } from './components/scroll-button/scroll-button.component';
-import { MaterialModule } from './material.module';
+import { MaterialModule } from '../material/material.module';
 import { RouterModule } from '@angular/router';
 import { TruncatePipe } from './pipes/truncate.pipe';
 import { NumbersOnlyDirective } from './custom directives/numbers-only.directive';

@@ -1,21 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../../auth/services/user.service';
+import { AuthService } from '../../../services/auth.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { EditInfoComponent } from '../edit-info/edit-info.component';
 
 @Component({
   selector: 'app-basic-info',
   templateUrl: './basic-info.component.html',
-  styleUrls: ['./basic-info.component.scss']
+  styleUrls: ['./basic-info.component.scss'],
 })
 export class BasicInfoComponent implements OnInit {
   public currentUser: any;
-  user: any
+  user: any;
 
-  constructor(private userService: UserService, private dialog: MatDialog) { }
+  constructor(private authService: AuthService, private dialog: MatDialog) {}
 
   ngOnInit(): void {
-    this.userService.currentUser$.subscribe(
+    this.authService.currentUser$.subscribe(
       (user) => (this.currentUser = user)
     );
   }

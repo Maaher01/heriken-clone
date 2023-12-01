@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from 'src/app/pages/auth/services/user.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -11,7 +11,7 @@ export class HeaderComponent implements OnInit {
   showCategoryMenu: boolean = false;
   showAccountMenu: boolean = false;
 
-  constructor(public userService: UserService) {}
+  constructor(public authService: AuthService) {}
 
   ngOnInit(): void {}
 
@@ -28,10 +28,10 @@ export class HeaderComponent implements OnInit {
   }
 
   logout() {
-    this.userService.logout();
+    this.authService.logout();
   }
 
   isLoggedIn() {
-    return this.userService.isLoggedIn();
+    return this.authService.isLoggedIn();
   }
 }

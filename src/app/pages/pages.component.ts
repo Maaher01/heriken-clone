@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { UserService } from './auth/services/user.service';
-import { CartService } from '../shared/services/cart.service';
+import { AuthService } from '../services/auth.service';
+import { CartService } from '../services/cart.service';
 import { map, mergeMap } from 'rxjs';
 
 @Component({
@@ -12,11 +12,11 @@ export class PagesComponent {
   public currentUser: any;
 
   constructor(
-    private userService: UserService,
+    private authService: AuthService,
     private cartService: CartService
   ) {}
 
-  cartData$ = this.userService.currentUser$.pipe(
+  cartData$ = this.authService.currentUser$.pipe(
     mergeMap((user) => {
       return this.cartService.getUserCart(user._id).pipe(
         map((res) => {

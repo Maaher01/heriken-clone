@@ -1,44 +1,58 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormBuilder, Validators } from '@angular/forms';
-import { UserService } from '../auth/services/user.service';
-import { CartService } from 'src/app/shared/services/cart.service';
+import { AuthService } from '../../services/auth.service';
+import { CartService } from 'src/app/services/cart.service';
 import { map, mergeMap } from 'rxjs';
+import { OrderService } from 'src/app/services/order.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-checkout',
   templateUrl: './checkout.component.html',
   styleUrls: ['./checkout.component.scss'],
 })
-export class CheckoutComponent {
+export class CheckoutComponent implements OnInit {
+  errorResponse!: string;
+  public currentUser: any;
+
   constructor(
     private fb: FormBuilder,
-    private userService: UserService,
-    private cartService: CartService
+    private authService: AuthService,
+    private cartService: CartService,
+    private orderService: OrderService,
+    private router: Router
   ) {}
 
   displayedColumns: string[] = [
     'Serial',
     'Product',
     'Price',
-    // 'Discount',
     'Quantity',
     'Total',
     'Action',
   ];
 
   checkoutForm = this.fb.group({
-    name: new FormControl('', [Validators.required]),
-    mobile: new FormControl('', [
+    name: new FormControl('Syed Maaher Hossain', [Validators.required]),
+    phoneNo: new FormControl('01714101359', [
       Validators.required,
       Validators.minLength(11),
       Validators.maxLength(11),
     ]),
-    address: new FormControl('', [Validators.required]),
-    deliveryLocation: new FormControl('', [Validators.required]),
-    payMethod: new FormControl('', [Validators.required]),
+    shippingAddress: new FormControl('Apt-D1, Plot-2/6, Block-A, Lalmatia', [
+      Validators.required,
+    ]),
+    deliveryCharge: new FormControl('', [Validators.required]),
+    paymentMethod: new FormControl('', [Validators.required]),
   });
 
-  cartData$ = this.userService.currentUser$.pipe(
+  ngOnInit(): void {
+    this.authService.currentUser$.subscribe(
+      (user) => (this.currentUser = user)
+    );
+  }
+
+  cartData$ = this.authService.currentUser$.pipe(
     mergeMap((user) => {
       return this.cartService.getUserCart(user._id).pipe(
         map((res) => {
@@ -51,7 +65,15 @@ export class CheckoutComponent {
     })
   );
 
-  confirmOrder() {
-    
-  }
+  // confirmOrder() {
+  //   const userId = this.currentUser._id;
+  //   const cartId = this.cartData$;
+
+  //   this.orderService.addOrder(this.checkoutForm.value, userId).subscribe({
+  //     next: () => {
+  //       this.checkoutForm.reset();
+  //       this.router.navigate(['/pages/order-confirmation']);
+  //     },
+  //   });
+  // }
 }

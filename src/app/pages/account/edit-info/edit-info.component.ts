@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { UserService } from '../../auth/services/user.service';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-edit-info',
@@ -13,7 +13,7 @@ export class EditInfoComponent implements OnInit {
   errorResponse: any;
 
   constructor(
-    private userService: UserService,
+    private authService: AuthService,
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<EditInfoComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
@@ -44,7 +44,7 @@ export class EditInfoComponent implements OnInit {
     });
   }
 
-  editAdmin(id: any) {
+  editUser(id: any) {
     const payload = {
       fullName: this.editUserForm.controls['fullName'].value!,
       phoneNo: this.editUserForm.controls['phoneNo'].value!,
@@ -52,7 +52,7 @@ export class EditInfoComponent implements OnInit {
       address: this.editUserForm.controls['address'].value!,
       gender: this.editUserForm.controls['gender'].value!,
     };
-    this.userService.editUserById(id, payload).subscribe({
+    this.authService.editUserById(id, payload).subscribe({
       next: () => {
         this.closeDialog();
         window.location.reload();

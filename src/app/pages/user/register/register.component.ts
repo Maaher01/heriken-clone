@@ -1,14 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { UserService } from '../../services/user.service';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent {
   responseData: any;
   errorResponse!: string;
 
@@ -30,17 +30,15 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private userService: UserService,
+    private authService: AuthService,
     private router: Router
   ) {}
 
-  ngOnInit(): void {}
-
   registerUser() {
-    this.userService.register(this.userRegisterForm.value).subscribe({
+    this.authService.register(this.userRegisterForm.value).subscribe({
       next: () => {
         this.userRegisterForm.reset();
-        this.router.navigate(['/pages/auth']);
+        this.router.navigate(['/pages/user']);
       },
       error: (err) => {
         this.errorResponse = err.error.message;

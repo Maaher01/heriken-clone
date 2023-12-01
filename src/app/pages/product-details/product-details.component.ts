@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MoreDetailsComponent } from './more-details/more-details.component';
 import { CustomerReviewsComponent } from './customer-reviews/customer-reviews.component';
-import { ProductService } from 'src/app/shared/services/product.service';
+import { ProductService } from 'src/app/services/product.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { UserService } from '../auth/services/user.service';
-import { CartService } from 'src/app/shared/services/cart.service';
+import { AuthService } from '../../services/auth.service';
+import { CartService } from 'src/app/services/cart.service';
 
 @Component({
   selector: 'app-product-details',
@@ -22,12 +22,12 @@ export class ProductDetailsComponent implements OnInit {
     private route: ActivatedRoute,
     private productService: ProductService,
     private snackBar: MatSnackBar,
-    private userService: UserService,
+    private authService: AuthService,
     private cartService: CartService
   ) {}
 
   ngOnInit(): void {
-    this.userService.currentUser$.subscribe(
+    this.authService.currentUser$.subscribe(
       (user) => (this.currentUser = user)
     );
 
@@ -53,7 +53,7 @@ export class ProductDetailsComponent implements OnInit {
 
     this.cartService.addToCart(userId, productId).subscribe({
       next: () => {
-        this.snackBar.open("Added to cart successfully", '', {
+        this.snackBar.open('Added to cart successfully', '', {
           duration: 1500,
           panelClass: ['snackbar'],
         });
