@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
 export class CheckoutComponent implements OnInit {
   errorResponse!: string;
   public currentUser: any;
+  cartId: any
 
   constructor(
     private fb: FormBuilder,
@@ -33,13 +34,13 @@ export class CheckoutComponent implements OnInit {
   ];
 
   checkoutForm = this.fb.group({
-    name: new FormControl('Syed Maaher Hossain', [Validators.required]),
-    phoneNo: new FormControl('01714101359', [
+    name: new FormControl('', [Validators.required]),
+    phoneNo: new FormControl('', [
       Validators.required,
       Validators.minLength(11),
       Validators.maxLength(11),
     ]),
-    shippingAddress: new FormControl('Apt-D1, Plot-2/6, Block-A, Lalmatia', [
+    shippingAddress: new FormControl('', [
       Validators.required,
     ]),
     deliveryCharge: new FormControl('', [Validators.required]),
@@ -57,7 +58,7 @@ export class CheckoutComponent implements OnInit {
       return this.cartService.getUserCart(user._id).pipe(
         map((res) => {
           if (res.data[0]) {
-            console.log(res.data[0]);
+            this.cartId = res.data[0]._id
             return res.data[0];
           }
         })
@@ -65,15 +66,17 @@ export class CheckoutComponent implements OnInit {
     })
   );
 
-  // confirmOrder() {
-  //   const userId = this.currentUser._id;
-  //   const cartId = this.cartData$;
+  confirmOrder() {
+    const userId = this.currentUser._id;
 
-  //   this.orderService.addOrder(this.checkoutForm.value, userId).subscribe({
-  //     next: () => {
-  //       this.checkoutForm.reset();
-  //       this.router.navigate(['/pages/order-confirmation']);
-  //     },
-  //   });
-  // }
+    this.orderService.addOrder(this.checkoutForm.value, userId, this.cartId).subscribe({
+      next: () => {
+        this.checkoutForm.reset();
+        this.router.navigate(['/pages/order-confirmation']);
+      },
+      error: (err) => {
+        this.errorResponse = err.error.message
+      }
+    });
+  }
 }

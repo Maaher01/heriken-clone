@@ -58,13 +58,6 @@ export class AuthService {
     return localStorage.getItem('token') != null;
   }
 
-  editUserById(id: any, editPayload: any) {
-    return this._httpClient.put(
-      BASE_API_URL + `edit-user-by-id/${id}`,
-      editPayload
-    );
-  }
-
   forgotPassword(payload: any) {
     return this._httpClient
       .patch(BASE_API_URL + 'forgot-password', payload)

@@ -135,7 +135,7 @@
   </ng-template>
 
   <div class="right-area">
-    <form [formGroup]="checkoutForm">
+    <form [formGroup]="checkoutForm" (ngSubmit)="confirmOrder()">
       <div class="address-area">
         <h3>
           অর্ডার কনফার্ম করতে আপনার নাম, মোবাইল নাম্বর,ঠিকানা লিখে " অর্ডার করুন
