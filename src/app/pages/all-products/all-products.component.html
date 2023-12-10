@@ -55,7 +55,7 @@
 
           <div class="categories" *ngFor="let brand of productBrands">
             <label>
-              <input type="checkbox" class="check" />
+              <input type="checkbox" class="check" (change)="onCategoryCheckboxChange(brand.brandName)"/>
               <span>{{brand.brandName}}</span>
             </label>
             <p class="category-quantity"></p>
@@ -67,7 +67,7 @@
         </ng-container>
       </div>
     </div>
-    <ng-container *ngIf="products$ | async as products">
+    <!-- <ng-container *ngIf="products$ | async as products"> -->
       <section>
         <div class="card-div-main">
           <div class="card-sub-div">
@@ -75,6 +75,6 @@
           </div>
         </div>
       </section>
-    </ng-container>
+    <!-- </ng-container> -->
   </div>
 </div>

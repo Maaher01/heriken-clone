@@ -1,0 +1,87 @@
+.order-confirm-main {
+  width: 100%;
+  padding: 0 10px;
+
+  .order-confirm-sub {
+    max-width: 800px;
+    margin: auto;
+    margin-top: 60px;
+    background-color: white;
+
+    @media (max-width: 990px) {
+      max-width: 720px;
+    }
+
+    @media (max-width: 768px) {
+      max-width: 540px;
+    }
+
+    .content {
+      padding: 50px 150px;
+
+      @media (max-width: 768px) {
+        padding: 50px 75px;
+      }
+
+      @media (max-width: 550px) {
+        padding: 50px 25px;
+      }
+
+      .tick-circle {
+        height: 110px;
+        width: 110px;
+        border-radius: 100%;
+        background: #70c332;
+        margin: auto;
+        margin-top: 40px;
+        position: relative;
+
+        mat-icon {
+          position: absolute;
+          bottom: 50%;
+          right: 50%;
+          font-size: 50px;
+          overflow: visible;
+          font-weight: 600;
+          color: white;
+        }
+      }
+
+      .success-message {
+        text-align: center;
+
+        h3 {
+          margin: 15px 0 0 0;
+          font-size: 19px;
+        }
+
+        h4 {
+          margin: 20px 0 0 0;
+          font-size: 20px;
+          font-weight: 600;
+        }
+
+        p {
+          font-size: 18px;
+          margin: 15px 0 0 0;
+        }
+      }
+
+      .home-btn {
+        margin-top: 90px;
+        text-align: center;
+
+        button {
+          background-color: white;
+          color: #70c332;
+          border: 1px solid #70c332;
+          padding: 10px 20px;
+          border-radius: 6px;
+          font-size: 17px;
+          font-weight: 600;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}
