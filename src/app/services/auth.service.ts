@@ -20,8 +20,8 @@ export class AuthService {
   private _router = inject(Router);
 
   refreshTokenInterval: any;
-  private currentUserSubject: BehaviorSubject<User | null> =
-    new BehaviorSubject<User | null>(JSON.parse(localStorage.getItem('user')));
+  
+  private currentUserSubject: BehaviorSubject<User | null> = new BehaviorSubject<User | null>(JSON.parse(localStorage.getItem('user')));
   currentUser$ = this.currentUserSubject.asObservable();
 
   register(data: any) {
@@ -33,15 +33,12 @@ export class AuthService {
       .put<{ token: string }>(BASE_API_URL + 'login', payload)
       .pipe(
         tap((loginResponse) => {
-          console.log(loginResponse);
           localStorage.setItem('token', loginResponse.token);
         }),
         switchMap((_loginResponse) =>
           this.getUserInfo().pipe(
             tap((userInfo) => {
-              this.currentUserSubject.next(userInfo.data);
               localStorage.setItem('user', JSON.stringify(userInfo.data));
-              console.log({ userInfo });
             })
           )
         )

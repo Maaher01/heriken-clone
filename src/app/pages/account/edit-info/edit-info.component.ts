@@ -11,14 +11,6 @@ import { UserService } from '../../../services/user.service';
 export class EditInfoComponent implements OnInit {
   heading: string;
   errorResponse: any;
-
-  constructor(
-    private userService: UserService,
-    private fb: FormBuilder,
-    private dialogRef: MatDialogRef<EditInfoComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
-  ) {}
-
   editUserForm = this.fb.group({
     fullName: new FormControl('', [
       Validators.required,
@@ -33,6 +25,15 @@ export class EditInfoComponent implements OnInit {
     address: new FormControl('', [Validators.required]),
     gender: new FormControl('', [Validators.required]),
   });
+
+  constructor(
+    private userService: UserService,
+    private fb: FormBuilder,
+    private dialogRef: MatDialogRef<EditInfoComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any
+  ) {
+    this.heading = data.heading;
+  }
 
   ngOnInit(): void {
     this.editUserForm.patchValue({

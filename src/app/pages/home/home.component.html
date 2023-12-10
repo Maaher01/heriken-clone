@@ -1,17 +1,51 @@
 <div class="main">
   <app-sub-icons></app-sub-icons>
 
-  <ng-container *ngIf="products$ | async as products">
-    <section>
+  <section>
+    <div class="title-area">
+      <h1>Leather Accessories</h1>
+    </div>
+    <ng-container *ngIf="leatherProducts$ | async as leatherProducts">
       <div class="card-div-main">
         <div class="card-sub-div">
-          <app-product-card *ngFor="let product of products" [product]="product"></app-product-card>
+          <app-product-card *ngFor="let product of leatherProducts" [product]="product"></app-product-card>
         </div>
       </div>
-    </section>
-  </ng-container>
+    </ng-container>
+    <!-- <div class="more-button">
+      <button><mat-icon>remove_red_eye</mat-icon>VIEW ALL DEALS</button>
+    </div> -->
+  </section>
 
-  <!-- <div class="more-button">
-    <button><mat-icon>remove_red_eye</mat-icon>VIEW ALL DEALS</button>
-  </div> -->
+  <section>
+    <div class="title-area">
+      <h1>Earbuds</h1>
+    </div>
+    <ng-container *ngIf="earbuds$ | async as earbuds">
+      <div class="card-div-main">
+        <div class="card-sub-div">
+          <app-product-card *ngFor="let product of earbuds" [product]="product"></app-product-card>
+        </div>
+      </div>
+    </ng-container>
+    <!-- <div class="more-button">
+      <button><mat-icon>remove_red_eye</mat-icon>VIEW ALL DEALS</button>
+    </div> -->
+  </section>
+
+  <section>
+    <div class="title-area">
+      <h1>Earphones</h1>
+    </div>
+    <ng-container *ngIf="earphones$ | async as earphones">
+      <div class="card-div-main">
+        <div class="card-sub-div">
+          <app-product-card *ngFor="let product of earphones" [product]="product"></app-product-card>
+        </div>
+      </div>
+    </ng-container>
+    <!-- <div class="more-button">
+      <button><mat-icon>remove_red_eye</mat-icon>VIEW ALL DEALS</button>
+    </div> -->
+  </section>
 </div>

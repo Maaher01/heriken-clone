@@ -1,22 +1,24 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Product } from 'src/app/models/product';
+
+const BASE_API_URL = `${environment.baseUrl}product/`;
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProductService {
-  apiUrl: any = environment.baseUrl + 'product/';
+  private _httpClient = inject(HttpClient);
 
-  constructor(private http: HttpClient) {}
-
-  getAllProducts(): Observable<{ data: Product[] }> {
-    return this.http.get<{ data: Product[] }>(this.apiUrl + 'get-all-products');
+  getAllProducts(filter?: any): Observable<{ data: Product[] }> {
+    return this._httpClient.post<{ data: Product[], count: number }>(BASE_API_URL + 'get-all-products', filter);
   }
 
-  getProductById(id: any) {
-    return this.http.get(this.apiUrl + `get-single-product-by-id/${id}`);
+  getProductById(id: any): Observable<{ data: Product }> {
+    return this._httpClient.get<{ data: Product }>(
+      BASE_API_URL + `get-single-product-by-id/${id}`
+    );
   }
 }

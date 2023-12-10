@@ -5,9 +5,8 @@ import { HttpClient } from '@angular/common/http';
 const BASE_API_URL = `${environment.baseUrl}user/`;
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-
 export class UserService {
   private _httpClient = inject(HttpClient);
 

@@ -8,11 +8,30 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent {
-  products$ = this.productService.getAllProducts().pipe(
-    map((res) => {
-      return res.data;
-    })
-  );
 
   constructor(private productService: ProductService) {}
+
+  leatherProducts$ = this.productService
+    .getAllProducts({filter: {categoryName: "Leather"}})
+    .pipe(
+      map((res) => {
+        return res.data;
+      })
+    );
+
+    earbuds$ = this.productService
+    .getAllProducts({filter: {subCategoryName: "Earbuds"}})
+    .pipe(
+      map((res) => {
+        return res.data;
+      })
+    );
+
+    earphones$ = this.productService
+    .getAllProducts({filter: {subCategoryName: "Earphones"}})
+    .pipe(
+      map((res) => {
+        return res.data;
+      })
+    );
 }

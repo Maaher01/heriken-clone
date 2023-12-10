@@ -11,6 +11,7 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class ProductCardComponent implements OnInit {
   @Input() product: Product;
+  errorResponse: any;
   public currentUser: any;
 
   constructor(
@@ -36,7 +37,7 @@ export class ProductCardComponent implements OnInit {
         });
       },
       error: (err) => {
-        console.log(err);
+        this.errorResponse = err.message;
       },
     });
   }

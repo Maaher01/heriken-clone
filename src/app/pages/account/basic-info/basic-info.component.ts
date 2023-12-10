@@ -10,7 +10,6 @@ import { EditInfoComponent } from '../edit-info/edit-info.component';
 })
 export class BasicInfoComponent implements OnInit {
   public currentUser: any;
-  user: any;
 
   constructor(private authService: AuthService, private dialog: MatDialog) {}
 

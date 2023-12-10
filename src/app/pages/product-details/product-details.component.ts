@@ -14,6 +14,7 @@ import { CartService } from 'src/app/services/cart.service';
 })
 export class ProductDetailsComponent implements OnInit {
   detailsAndRatingSection = MoreDetailsComponent;
+  errorResponse: any;
   product: any;
   productData: any;
   public currentUser: any;
@@ -43,7 +44,7 @@ export class ProductDetailsComponent implements OnInit {
         this.product = this.productData.data;
       },
       error: (err) => {
-        console.log(err);
+        this.errorResponse = err.message;
       },
     });
   }
@@ -59,7 +60,7 @@ export class ProductDetailsComponent implements OnInit {
         });
       },
       error: (err) => {
-        console.log(err);
+        this.errorResponse = err.message
       },
     });
   }

@@ -10,6 +10,7 @@ import { map, mergeMap } from 'rxjs';
 })
 export class PagesComponent {
   public currentUser: any;
+  errorResponse: any;
 
   constructor(
     private authService: AuthService,
@@ -32,9 +33,8 @@ export class PagesComponent {
     const userId = this.currentUser._id;
 
     this.cartService.addToCart(userId, productId).subscribe({
-      next: () => {},
       error: (err) => {
-        console.log(err);
+        this.errorResponse = err.message;
       },
     });
   }

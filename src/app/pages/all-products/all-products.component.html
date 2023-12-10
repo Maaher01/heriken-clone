@@ -1,64 +1,80 @@
-<div class="allproducts">
-  <div class="product-filter">
-    <div class="filter-range">
-      <h3 class="filter-title">Filter by Price</h3>
-      <div class="range">
-        <input type="text" placeholder="Min-00" />
-        <input type="text" placeholder="Max-5k" />
+<div class="allproducts-main">
+  <div class="allproducts">
+    <div class="product-filter">
+      <!-- <div class="filter-range">
+        <h3 class="filter-title">Filter by Price</h3>
+        <div class="range">
+          <input type="text" placeholder="Min-00" />
+          <input type="text" placeholder="Max-5k" />
+        </div>
+
+        <div class="filter-btn">
+          <button><mat-icon>search</mat-icon> Search</button>
+        </div>
+      </div> -->
+
+      <div class="filter-category filter-range">
+        <ng-container *ngIf="productCategories$ | async as productCategories">
+          <h3 class="filter-title">Filter By Category</h3>
+
+          <div class="categories" *ngFor="let category of productCategories">
+            <label>
+              <input type="checkbox" class="check" />
+              <span>{{category.categoryName}}</span>
+            </label>
+            <p class="category-quantity"></p>
+          </div>
+
+          <div class="filter-btn">
+            <button><mat-icon>delete</mat-icon> Clear</button>
+          </div>
+        </ng-container>
       </div>
 
-      <div class="filter-btn">
-        <button><mat-icon>search</mat-icon> Search</button>
+      <div class="filter-category filter-range">
+        <ng-container *ngIf="productSubCategories$ | async as productSubCategories">
+          <h3 class="filter-title">Filter By Sub Category</h3>
+
+          <div class="categories" *ngFor="let subCategory of productSubCategories">
+            <label>
+              <input type="checkbox" class="check" />
+              <span>{{subCategory.subCategoryName}}</span>
+            </label>
+            <p class="category-quantity"></p>
+          </div>
+
+          <div class="filter-btn">
+            <button><mat-icon>delete</mat-icon> Clear</button>
+          </div>
+        </ng-container>
+      </div>
+
+      <div class="filter-category filter-range">
+        <ng-container *ngIf="productBrands$ | async as productBrands">
+          <h3 class="filter-title">Filter By Brand</h3>
+
+          <div class="categories" *ngFor="let brand of productBrands">
+            <label>
+              <input type="checkbox" class="check" />
+              <span>{{brand.brandName}}</span>
+            </label>
+            <p class="category-quantity"></p>
+          </div>
+
+          <div class="filter-btn">
+            <button><mat-icon>delete</mat-icon> Clear</button>
+          </div>
+        </ng-container>
       </div>
     </div>
-
-    <div class="filter-category filter-range">
-      <h3 class="filter-title">Filter By Category</h3>
-
-      <div class="categories">
-        <label>
-          <input type="checkbox" class="check" />
-          <span>Groceries</span>
-        </label>
-        <p class="category-quantity">(12)</p>
-      </div>
-
-      <div class="categories">
-        <label>
-          <input type="checkbox" class="check" />
-          <span>Kids Toys</span>
-        </label>
-        <p class="category-quantity">(79)</p>
-      </div>
-
-      <div class="categories">
-        <label>
-          <input type="checkbox" class="check" />
-          <span>Leather</span>
-        </label>
-        <p class="category-quantity">(29)</p>
-      </div>
-
-      <div class="categories">
-        <label>
-          <input type="checkbox" class="check" />
-          <span>Gadgets</span>
-        </label>
-        <p class="category-quantity">(226)</p>
-      </div>
-
-      <div class="categories">
-        <label>
-          <input type="checkbox" class="check" />
-          <span>Women's Clothes</span>
-        </label>
-        <p class="category-quantity">(258)</p>
-      </div>
-
-      <div class="filter-btn">
-        <button><mat-icon>delete</mat-icon> Clear</button>
-      </div>
-    </div>
+    <ng-container *ngIf="products$ | async as products">
+      <section>
+        <div class="card-div-main">
+          <div class="card-sub-div">
+            <app-product-card *ngFor="let product of products" [product]="product"></app-product-card>
+          </div>
+        </div>
+      </section>
+    </ng-container>
   </div>
-  <app-product-card></app-product-card>
 </div>
