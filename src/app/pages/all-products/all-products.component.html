@@ -1,32 +1,17 @@
 <div class="allproducts-main">
   <div class="allproducts">
-    <div class="product-filter">
-      <!-- <div class="filter-range">
-        <h3 class="filter-title">Filter by Price</h3>
-        <div class="range">
-          <input type="text" placeholder="Min-00" />
-          <input type="text" placeholder="Max-5k" />
-        </div>
-
-        <div class="filter-btn">
-          <button><mat-icon>search</mat-icon> Search</button>
-        </div>
-      </div> -->
-
+    <section class="product-filter">
       <div class="filter-category filter-range">
         <ng-container *ngIf="productCategories$ | async as productCategories">
           <h3 class="filter-title">Filter By Category</h3>
-
           <div class="categories" *ngFor="let category of productCategories">
-            <label>
-              <input type="checkbox" class="check" />
-              <span>{{category.categoryName}}</span>
-            </label>
+            <mat-checkbox class="example-margin"
+              (change)="onCategoryCheckboxChange(category.categoryName)"></mat-checkbox>
+            <span>{{category.categoryName}}</span>
             <p class="category-quantity"></p>
           </div>
-
           <div class="filter-btn">
-            <button><mat-icon>delete</mat-icon> Clear</button>
+            <button (click)="getAllProducts()"><mat-icon>delete</mat-icon> Clear</button>
           </div>
         </ng-container>
       </div>
@@ -34,17 +19,14 @@
       <div class="filter-category filter-range">
         <ng-container *ngIf="productSubCategories$ | async as productSubCategories">
           <h3 class="filter-title">Filter By Sub Category</h3>
-
           <div class="categories" *ngFor="let subCategory of productSubCategories">
-            <label>
-              <input type="checkbox" class="check" />
-              <span>{{subCategory.subCategoryName}}</span>
-            </label>
+            <mat-checkbox class="example-margin"
+              (change)="onSubCategoryCheckboxChange(subCategory.subCategoryName)"></mat-checkbox>
+            <span>{{subCategory.subCategoryName}}</span>
             <p class="category-quantity"></p>
           </div>
-
           <div class="filter-btn">
-            <button><mat-icon>delete</mat-icon> Clear</button>
+            <button (click)="getAllProducts()"><mat-icon>delete</mat-icon> Clear</button>
           </div>
         </ng-container>
       </div>
@@ -52,29 +34,25 @@
       <div class="filter-category filter-range">
         <ng-container *ngIf="productBrands$ | async as productBrands">
           <h3 class="filter-title">Filter By Brand</h3>
-
           <div class="categories" *ngFor="let brand of productBrands">
-            <label>
-              <input type="checkbox" class="check" (change)="onCategoryCheckboxChange(brand.brandName)"/>
-              <span>{{brand.brandName}}</span>
-            </label>
+            <mat-checkbox class="example-margin" (change)="onBrandCheckboxChange(brand.brandName)"></mat-checkbox>
+            <span>{{brand.brandName}}</span>
             <p class="category-quantity"></p>
           </div>
-
           <div class="filter-btn">
-            <button><mat-icon>delete</mat-icon> Clear</button>
+            <button (click)="getAllProducts()"><mat-icon>delete</mat-icon> Clear</button>
           </div>
         </ng-container>
       </div>
-    </div>
-    <!-- <ng-container *ngIf="products$ | async as products"> -->
-      <section>
-        <div class="card-div-main">
-          <div class="card-sub-div">
-            <app-product-card *ngFor="let product of products" [product]="product"></app-product-card>
-          </div>
+    </section>
+
+    <section>
+      <div class="card-div-main">
+        <div class="card-sub-div">
+          <app-product-card *ngFor="let product of products" [product]="product"></app-product-card>
         </div>
-      </section>
-    <!-- </ng-container> -->
+      </div>
+    </section>
+
   </div>
 </div>

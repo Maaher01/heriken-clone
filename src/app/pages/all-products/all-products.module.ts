@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
+import { MaterialModule } from 'src/app/material/material.module';
 import { AllProductsRoutingModule } from './all-products-routing.module';
 import { AllProductsComponent } from './all-products.component';
 import { SharedModule } from 'src/app/shared/shared.module';
@@ -12,6 +13,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
     AllProductsRoutingModule,
     MatIconModule,
     SharedModule,
+    MaterialModule
   ],
 })
 export class AllProductsModule {}

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormBuilder, Validators } from '@angular/forms';
+import { FormControl, FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { CartService } from 'src/app/services/cart.service';
 import { map, mergeMap } from 'rxjs';
@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 })
 export class CheckoutComponent implements OnInit {
   errorResponse!: string;
+  checkoutForm !: FormGroup
   public currentUser: any;
   cartId: any
 
@@ -33,24 +34,24 @@ export class CheckoutComponent implements OnInit {
     'Action',
   ];
 
-  checkoutForm = this.fb.group({
-    name: new FormControl('', [Validators.required]),
-    phoneNo: new FormControl('', [
-      Validators.required,
-      Validators.minLength(11),
-      Validators.maxLength(11),
-    ]),
-    shippingAddress: new FormControl('', [
-      Validators.required,
-    ]),
-    deliveryCharge: new FormControl('', [Validators.required]),
-    paymentMethod: new FormControl('', [Validators.required]),
-  });
-
   ngOnInit(): void {
     this.authService.currentUser$.subscribe(
       (user) => (this.currentUser = user)
     );
+
+    this.checkoutForm = this.fb.group({
+      name: new FormControl(this.currentUser.fullName, [Validators.required]),
+      phoneNo: new FormControl(this.currentUser.phoneNo, [
+        Validators.required,
+        Validators.minLength(11),
+        Validators.maxLength(11),
+      ]),
+      shippingAddress: new FormControl(this.currentUser.address, [
+        Validators.required,
+      ]),
+      deliveryCharge: new FormControl('', [Validators.required]),
+      paymentMethod: new FormControl('', [Validators.required]),
+    });
   }
 
   cartData$ = this.authService.currentUser$.pipe(

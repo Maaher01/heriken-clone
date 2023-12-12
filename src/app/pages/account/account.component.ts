@@ -13,7 +13,7 @@ export class AccountComponent {
   constructor() {}
 
   assignAccountComponent(component) {
-    if (component === 'more-details') {
+    if (component === 'order-list') {
       this.accountSection = BasicInfoComponent;
     } 
     // else if (component === 'order-list') {

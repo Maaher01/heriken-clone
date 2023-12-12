@@ -7,6 +7,7 @@ export interface Order {
   export interface OrderInfo {
     name: string;
     phoneNo: string;
+    checkoutDate: string;
     shippingAddress: string;
     paymentMethod: string;
     deliveryCharge: Number
