@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormBuilder, Validators, FormGroup } from '@angular/forms';
+import {
+  FormControl,
+  FormBuilder,
+  Validators,
+  FormGroup,
+} from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { CartService } from 'src/app/services/cart.service';
 import { map, mergeMap } from 'rxjs';
@@ -13,9 +18,9 @@ import { Router } from '@angular/router';
 })
 export class CheckoutComponent implements OnInit {
   errorResponse!: string;
-  checkoutForm !: FormGroup
+  checkoutForm!: FormGroup;
   public currentUser: any;
-  cartId: any
+  cartId: any;
 
   constructor(
     private fb: FormBuilder,
@@ -59,7 +64,7 @@ export class CheckoutComponent implements OnInit {
       return this.cartService.getUserCart(user._id).pipe(
         map((res) => {
           if (res.data[0]) {
-            this.cartId = res.data[0]._id
+            this.cartId = res.data[0]._id;
             return res.data[0];
           }
         })
@@ -70,14 +75,34 @@ export class CheckoutComponent implements OnInit {
   confirmOrder() {
     const userId = this.currentUser._id;
 
-    this.orderService.addOrder(this.checkoutForm.value, userId, this.cartId).subscribe({
-      next: () => {
-        this.checkoutForm.reset();
-        this.router.navigate(['/pages/order-confirmation']);
-      },
+    this.orderService
+      .addOrder(this.checkoutForm.value, userId, this.cartId)
+      .subscribe({
+        next: () => {
+          this.checkoutForm.reset();
+          this.router.navigate(['/order-confirmation']);
+        },
+        error: (err) => {
+          this.errorResponse = err.error.message;
+        },
+      });
+  }
+
+  addToCart(productId: any) {
+    const userId = this.currentUser._id;
+    this.cartService.addToCart(userId, productId).subscribe({
       error: (err) => {
-        this.errorResponse = err.error.message
-      }
+        this.errorResponse = err.message;
+      },
+    });
+  }
+
+  removeFromCart(productId: any) {
+    const userId = this.currentUser._id;
+    this.cartService.removeFromCart(userId, productId).subscribe({
+      error: (err) => {
+        this.errorResponse = err.message;
+      },
     });
   }
 }

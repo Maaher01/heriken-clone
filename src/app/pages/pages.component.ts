@@ -17,6 +17,12 @@ export class PagesComponent {
     private cartService: CartService
   ) {}
 
+  ngOnInit(): void {
+    this.authService.currentUser$.subscribe(
+      (user) => (this.currentUser = user)
+    );
+  }
+
   cartData$ = this.authService.currentUser$.pipe(
     mergeMap((user) => {
       return this.cartService.getUserCart(user._id).pipe(
@@ -31,8 +37,16 @@ export class PagesComponent {
 
   addToCart(productId: any) {
     const userId = this.currentUser._id;
-
     this.cartService.addToCart(userId, productId).subscribe({
+      error: (err) => {
+        this.errorResponse = err.message;
+      },
+    });
+  }
+
+  removeFromCart(productId: any) {
+    const userId = this.currentUser._id;
+    this.cartService.removeFromCart(userId, productId).subscribe({
       error: (err) => {
         this.errorResponse = err.message;
       },

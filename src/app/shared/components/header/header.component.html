@@ -16,13 +16,13 @@
           <div class="drop-arrow">
             <mat-icon (click)="toggleAccountDropdown()" (outsideClick)="toggleAccountDropdown()">arrow_drop_down</mat-icon>
             <div class="account-dropdown" *ngIf="showAccountMenu">
-              <a [routerLink]="['/pages/account']">Profile</a>
+              <a [routerLink]="['/account']">Profile</a>
               <a (click)="logout()">Logout</a>
             </div>
           </div>
         </div>
         <ng-template #loggedOutTemplate>
-          <div class="account-section" matTooltip="Login/Register" [routerLink]="['/pages/user']">
+          <div class="account-section" matTooltip="Login/Register" [routerLink]="['/user']">
             <div class="account-icon">
               <i class="fa-solid fa-user"></i>
             </div>

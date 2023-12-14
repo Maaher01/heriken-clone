@@ -22,11 +22,11 @@
             <span>Unit Price: {{product.product.price}}</span>
             <div class="quantity-price">
               <div class="quantity">
-                <button>
+                <button (click)="removeFromCart(product.product._id)" [disabled]="product.productQuantity == 1">
                   <i class="fa fa-minus" aria-hidden="true"></i>
                 </button>
                 <input type="text" readonly value="{{product.productQuantity}}">
-                <button (click)="addToCart(product.product?._id)">
+                <button (click)="addToCart(product.product._id)">
                   <i class="fa fa-plus" aria-hidden="true"></i>
                 </button>
               </div>
@@ -38,7 +38,7 @@
         </div>
       </div>
       <div class="cart-bottom">
-        <a [routerLink]="['/pages/checkout']" (click)="drawer.toggle()">
+        <a [routerLink]="['/checkout']" (click)="drawer.toggle()">
           <p>Proceed to Checkout</p>
           <!-- <span>৳{{subTotal | number}}</span> -->
         </a>
@@ -59,7 +59,7 @@
       <div class="cart-content"></div>
 
       <div class="cart-bottom">
-        <a [routerLink]="['/pages/checkout']" (click)="drawer.toggle()">
+        <a [routerLink]="['/checkout']" (click)="drawer.toggle()">
           <p>Proceed to Checkout</p>
           <!-- <span>৳{{subTotal | number}}</span> -->
         </a>

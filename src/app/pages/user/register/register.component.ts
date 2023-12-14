@@ -38,7 +38,7 @@ export class RegisterComponent {
     this.authService.register(this.userRegisterForm.value).subscribe({
       next: () => {
         this.userRegisterForm.reset();
-        this.router.navigate(['/pages/user']);
+        this.router.navigate(['/user']);
       },
       error: (err) => {
         this.errorResponse = err.error.message;

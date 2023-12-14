@@ -61,7 +61,7 @@ export class AuthService {
       .pipe(
         tap((res: any) => {
           localStorage.removeItem('token');
-          this._router.navigateByUrl('/pages/user/login');
+          this._router.navigateByUrl('/user/login');
         })
       );
   }
@@ -71,7 +71,7 @@ export class AuthService {
     setTimeout(() => {
       clearInterval(this.refreshTokenInterval);
       this.refreshTokenInterval = null;
-      this._router.navigate(['/pages/user/login']);
+      this._router.navigate(['/user/login']);
     }, 1000);
   }
 }

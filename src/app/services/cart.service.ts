@@ -19,6 +19,12 @@ export class CartService {
     return this._httpClient.post(BASE_API_URL + 'add-to-cart', data);
   }
 
+  removeFromCart(userId: string, productId: string) {
+    const data = { userId, productId };
+
+    return this._httpClient.post(BASE_API_URL + 'remove-from-cart', data);
+  }
+
   getUserCart(userId: string): Observable<any> {
     const params = {userId}
     
