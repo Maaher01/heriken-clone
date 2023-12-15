@@ -31,7 +31,7 @@
                 </button>
               </div>
               <div class="price">
-                <p>৳{{product.product.price * product.productQuantity | number}}</p>
+                <p>৳{{product.totalProductPrice}}</p>
               </div>
             </div>
           </div>
@@ -40,7 +40,7 @@
       <div class="cart-bottom">
         <a [routerLink]="['/checkout']" (click)="drawer.toggle()">
           <p>Proceed to Checkout</p>
-          <!-- <span>৳{{subTotal | number}}</span> -->
+          <span>৳{{cartData.grandTotal | number}}</span>
         </a>
       </div>
     </ng-container>
@@ -61,7 +61,7 @@
       <div class="cart-bottom">
         <a [routerLink]="['/checkout']" (click)="drawer.toggle()">
           <p>Proceed to Checkout</p>
-          <!-- <span>৳{{subTotal | number}}</span> -->
+          <span>৳{{0 | number}}</span>
         </a>
       </div>
     </ng-template>

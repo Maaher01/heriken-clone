@@ -34,6 +34,7 @@ export class CheckoutComponent implements OnInit {
     'Serial',
     'Product',
     'Price',
+    // 'Discount',
     'Quantity',
     'Total',
     'Action',
