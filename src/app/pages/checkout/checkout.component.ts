@@ -56,7 +56,7 @@ export class CheckoutComponent implements OnInit {
         Validators.required,
       ]),
       deliveryCharge: new FormControl('', [Validators.required]),
-      paymentMethod: new FormControl('', [Validators.required]),
+      paymentType: new FormControl('', [Validators.required]),
     });
   }
 
@@ -74,10 +74,10 @@ export class CheckoutComponent implements OnInit {
   );
 
   confirmOrder() {
-    const userId = this.currentUser._id;
+    const user = this.currentUser._id;
 
     this.orderService
-      .addOrder(this.checkoutForm.value, userId, this.cartId)
+      .addOrder(this.checkoutForm.value, user, this.cartId)
       .subscribe({
         next: () => {
           this.checkoutForm.reset();

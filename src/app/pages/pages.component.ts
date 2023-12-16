@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { CartService } from '../services/cart.service';
 import { map, mergeMap } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-pages',
@@ -13,6 +14,7 @@ export class PagesComponent {
   errorResponse: any;
 
   constructor(
+    private snackBar: MatSnackBar,
     private authService: AuthService,
     private cartService: CartService
   ) {}
@@ -50,6 +52,13 @@ export class PagesComponent {
       error: (err) => {
         this.errorResponse = err.message;
       },
+    });
+  }
+
+  emptyCartCheckout() {
+    this.snackBar.open('No products in cart', '', {
+      duration: 1500,
+      panelClass: ['snackbar-warn'],
     });
   }
 }

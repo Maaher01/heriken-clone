@@ -3,10 +3,10 @@
         <div *ngIf="cartData">
             <div class="top">
                 <mat-icon>shopping_basket</mat-icon>
+                <span>{{cartData.totalQuantity | number : '2.0-0'}} Items</span>
             </div>
             <div class="card-price">
-                <!-- <span>৳{{subTotal | number}}</span> -->
-                <span>{{cartData.totalQuantity | number : '2.0-0'}} Items</span>
+                <span>৳{{cartData.grandTotal | number}}</span>
             </div>
         </div>
     </ng-container>
@@ -14,10 +14,10 @@
     <ng-template #emptyCartTemplate>
         <div class="top">
             <mat-icon>shopping_basket</mat-icon>
+            <span>00 Items</span>
         </div>
         <div class="card-price">
-            <!-- <span>৳{{subTotal | number}}</span> -->
-            <span>00 Items</span>
+            <span>৳0</span>
         </div>
     </ng-template>
 </div>

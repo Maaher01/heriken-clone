@@ -12,10 +12,14 @@ body {
 .text-center {
   text-align: center !important;
 }
-.snackbar {
+.snackbar-primary {
   background-color: #70c332;
   color: white;
-  font-size: 48px;
+}
+
+.snackbar-warn {
+  background-color: orange;
+  color: white;
 }
 .footer-area {
   background: rgb(238, 243, 243);

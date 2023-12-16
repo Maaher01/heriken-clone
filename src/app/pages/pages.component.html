@@ -59,7 +59,7 @@
       <div class="cart-content"></div>
 
       <div class="cart-bottom">
-        <a [routerLink]="['/checkout']" (click)="drawer.toggle()">
+        <a (click)="emptyCartCheckout();drawer.toggle()">
           <p>Proceed to Checkout</p>
           <span>৳{{0 | number}}</span>
         </a>
