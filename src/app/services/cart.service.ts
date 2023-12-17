@@ -25,6 +25,18 @@ export class CartService {
     return this._httpClient.post(BASE_API_URL + 'remove-from-cart', data);
   }
 
+  increaseProductQuantity(userId: string, productId: string) {
+    const data = { userId, productId };
+
+    return this._httpClient.post(BASE_API_URL + 'increase-product-quantity', data);
+  }
+
+  decreaseProductQuantity(userId: string, productId: string) {
+    const data = { userId, productId };
+
+    return this._httpClient.post(BASE_API_URL + 'decrease-product-quantity', data);
+  }
+
   getUserCart(userId: string): Observable<any> {
     const params = {userId}
     

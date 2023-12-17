@@ -66,9 +66,46 @@
           border-radius: 8px;
           overflow: hidden;
           min-width: 100px;
+          position: relative;
 
           img {
             width: 100px;
+          }
+
+          .del-btn {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            background-color: #0006;
+            transition: all 0.3s linear;
+
+            span {
+              width: 32px;
+              height: 32px;
+              font-size: 18px;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              border-radius: 5px;
+              color: #ff3838;
+              background: rgba(255,255,255,.9);
+              transition: all 0.3s linear;
+              cursor: pointer;
+
+              &:hover {
+                color: white;
+                background: #ff3838;
+              }
+
+              i {
+                font-weight: 900;
+              }
+            }
           }
         }
 

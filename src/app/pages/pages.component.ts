@@ -46,6 +46,24 @@ export class PagesComponent {
     });
   }
 
+  decreaseProductQuantity(productId: any) {
+    const userId = this.currentUser._id;
+    this.cartService.decreaseProductQuantity(userId, productId).subscribe({
+      error: (err) => {
+        this.errorResponse = err.message;
+      },
+    });
+  }
+
+  increaseProductQuantity(productId: any) {
+    const userId = this.currentUser._id;
+    this.cartService.increaseProductQuantity(userId, productId).subscribe({
+      error: (err) => {
+        this.errorResponse = err.message;
+      },
+    });
+  }
+
   removeFromCart(productId: any) {
     const userId = this.currentUser._id;
     this.cartService.removeFromCart(userId, productId).subscribe({

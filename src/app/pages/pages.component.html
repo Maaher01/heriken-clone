@@ -16,17 +16,22 @@
         <div class="cart-item" *ngFor="let product of cartData.cartProducts">
           <div class="card-img">
             <img [src]="product.product.images" />
+            <!-- <div class="del-btn" (click)="removeFromCart(product.product._id)">
+              <span>
+                <i class="fa fa-trash-alt" aria-hidden="true"></i>
+              </span>
+            </div> -->
           </div>
           <div class="card-text">
             <h4>{{product.product.productName | truncate: 25 }}</h4>
             <span>Unit Price: {{product.product.price}}</span>
             <div class="quantity-price">
               <div class="quantity">
-                <button (click)="removeFromCart(product.product._id)" [disabled]="product.productQuantity == 1">
+                <button (click)="decreaseProductQuantity(product.product._id)" [disabled]="product.productQuantity == 1">
                   <i class="fa fa-minus" aria-hidden="true"></i>
                 </button>
                 <input type="text" readonly value="{{product.productQuantity}}">
-                <button (click)="addToCart(product.product._id)">
+                <button (click)="increaseProductQuantity(product.product._id)">
                   <i class="fa fa-plus" aria-hidden="true"></i>
                 </button>
               </div>

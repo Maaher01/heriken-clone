@@ -5,7 +5,7 @@
 .main {
   background-color: #f5f6f7;
 
-  section {
+  .product-section {
     margin-top: 20px;
     margin-bottom: 110px;
     
@@ -84,5 +84,9 @@
         }
       }
     }
+  }
+
+  .bottom-sub-icons {
+    background-color: #f8fffa;
   }
 }

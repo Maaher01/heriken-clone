@@ -80,6 +80,8 @@ export class CheckoutComponent implements OnInit {
       .addOrder(this.checkoutForm.value, user, this.cartId)
       .subscribe({
         next: () => {
+          console.log("Hello");
+          
           this.checkoutForm.reset();
           this.router.navigate(['/order-confirmation']);
         },
@@ -92,6 +94,24 @@ export class CheckoutComponent implements OnInit {
   addToCart(productId: any) {
     const userId = this.currentUser._id;
     this.cartService.addToCart(userId, productId).subscribe({
+      error: (err) => {
+        this.errorResponse = err.message;
+      },
+    });
+  }
+
+  decreaseProductQuantity(productId: any) {
+    const userId = this.currentUser._id;
+    this.cartService.decreaseProductQuantity(userId, productId).subscribe({
+      error: (err) => {
+        this.errorResponse = err.message;
+      },
+    });
+  }
+
+  increaseProductQuantity(productId: any) {
+    const userId = this.currentUser._id;
+    this.cartService.increaseProductQuantity(userId, productId).subscribe({
       error: (err) => {
         this.errorResponse = err.message;
       },
