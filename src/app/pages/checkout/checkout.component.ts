@@ -80,8 +80,6 @@ export class CheckoutComponent implements OnInit {
       .addOrder(this.checkoutForm.value, user, this.cartId)
       .subscribe({
         next: () => {
-          console.log("Hello");
-          
           this.checkoutForm.reset();
           this.router.navigate(['/order-confirmation']);
         },

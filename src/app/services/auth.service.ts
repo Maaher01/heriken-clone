@@ -1,8 +1,8 @@
 import { inject, Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Observable, switchMap, tap } from 'rxjs';
+import { BehaviorSubject, catchError, Observable, switchMap, tap, throwError } from 'rxjs';
 import { User } from 'src/app/models/user';
 
 const BASE_API_URL = `${environment.baseUrl}user/`;
@@ -25,12 +25,14 @@ export class AuthService {
   currentUser$ = this.currentUserSubject.asObservable();
 
   register(data: any) {
-    return this._httpClient.post(BASE_API_URL + 'registration', data);
+    return this._httpClient.post(BASE_API_URL + 'registration', data).pipe(
+      catchError(this.handleError)
+    );
   }
 
   login(payload: UserLoginRequestBody): Observable<{ data: User }> {
     return this._httpClient
-      .put<{ token: string }>(BASE_API_URL + 'login', payload)
+      .post<{ token: string }>(BASE_API_URL + 'login', payload)
       .pipe(
         tap((loginResponse) => {
           localStorage.setItem('token', loginResponse.token);
@@ -41,7 +43,8 @@ export class AuthService {
               localStorage.setItem('user', JSON.stringify(userInfo.data));
             })
           )
-        )
+        ),
+        catchError(this.handleError)
       );
   }
 
@@ -73,5 +76,12 @@ export class AuthService {
       this.refreshTokenInterval = null;
       this._router.navigate(['/user/login']);
     }, 1000);
+  }
+
+  private handleError(response: HttpErrorResponse) {
+    let errorResponse: any = {}
+    errorResponse['status'] = response.status
+    errorResponse['message'] = response.message
+    return throwError(() => errorResponse)
   }
 }

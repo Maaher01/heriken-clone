@@ -41,7 +41,7 @@ export class RegisterComponent {
         this.router.navigate(['/user']);
       },
       error: (err) => {
-        this.errorResponse = err.error.message;
+        this.errorResponse = err.message;
       },
     });
   }

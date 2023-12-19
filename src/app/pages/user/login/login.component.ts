@@ -30,20 +30,23 @@ export class LoginComponent {
     }
     this.authService
       .login(this.userLoginForm.getRawValue())
-      .pipe(
-        catchError((error: HttpErrorResponse | unknown) => {
-          if (error instanceof HttpErrorResponse) {
-            this.errorResponse = error.message;
-          }
-          return throwError(() => error);
-        })
-      )
+      // .pipe(
+      //   catchError((error: HttpErrorResponse | unknown) => {
+      //     if (error instanceof HttpErrorResponse) {
+      //       this.errorResponse = error.error.message;
+      //     }
+      //     return throwError(() => error);
+      //   })
+      // )
       .subscribe({
         next: (result) => {
           if (result != null) {
             this.router.navigate(['/']);
           }
         },
+        error: (err) => {
+          this.errorResponse = err.message
+        }
       });
   }
 }
