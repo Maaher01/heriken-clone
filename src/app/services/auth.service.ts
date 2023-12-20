@@ -65,7 +65,8 @@ export class AuthService {
         tap((res: any) => {
           localStorage.removeItem('token');
           this._router.navigateByUrl('/user/login');
-        })
+        }),
+        catchError(this.handleError)
       );
   }
 
@@ -81,7 +82,7 @@ export class AuthService {
   private handleError(response: HttpErrorResponse) {
     let errorResponse: any = {}
     errorResponse['status'] = response.status
-    errorResponse['message'] = response.message
+    errorResponse['message'] = response.error.message
     return throwError(() => errorResponse)
   }
 }

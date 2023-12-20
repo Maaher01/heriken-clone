@@ -1,8 +1,6 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormControl, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { catchError, throwError } from 'rxjs';
 import { AuthService } from '../../../services/auth.service';
 
 @Component({
@@ -28,25 +26,15 @@ export class LoginComponent {
     if (!this.userLoginForm.valid) {
       return;
     }
-    this.authService
-      .login(this.userLoginForm.getRawValue())
-      // .pipe(
-      //   catchError((error: HttpErrorResponse | unknown) => {
-      //     if (error instanceof HttpErrorResponse) {
-      //       this.errorResponse = error.error.message;
-      //     }
-      //     return throwError(() => error);
-      //   })
-      // )
-      .subscribe({
-        next: (result) => {
-          if (result != null) {
-            this.router.navigate(['/']);
-          }
-        },
-        error: (err) => {
-          this.errorResponse = err.message
+    this.authService.login(this.userLoginForm.getRawValue()).subscribe({
+      next: (result) => {
+        if (result != null) {
+          this.router.navigate(['/']);
         }
-      });
+      },
+      error: (err) => {
+        this.errorResponse = err.message;
+      },
+    });
   }
 }

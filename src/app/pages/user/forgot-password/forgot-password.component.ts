@@ -31,7 +31,7 @@ export class ForgotPasswordComponent implements OnInit {
         this.userForgotPasswordForm.reset();
       },
       error: (err) => {
-        this.errorResponse = err.error.message;
+        this.errorResponse = err.message;
       },
     });
   }
