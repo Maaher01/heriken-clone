@@ -11,8 +11,8 @@ const BASE_API_URL = `${environment.baseUrl}order/`
 export class OrderService {
   private _httpClient = inject(HttpClient)
 
-  addOrder(orderInfo: any, user: string, orderCart: Cart) {
-    const payload = {orderInfo, user, orderCart}
+  addOrder(orderInfo: any, user: string) {
+    const payload = {orderInfo, user}
 
     return this._httpClient.post(BASE_API_URL + 'add-order', payload)
   }
