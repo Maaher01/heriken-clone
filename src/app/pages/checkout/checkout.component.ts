@@ -77,8 +77,7 @@ export class CheckoutComponent implements OnInit {
     const user = this.currentUser._id;
 
     this.orderService
-      .addOrder(this.checkoutForm.value, user)
-      .subscribe({
+      .addOrder(this.checkoutForm.value, user).subscribe({
         next: () => {
           this.checkoutForm.reset();
           this.router.navigate(['/order-confirmation']);
